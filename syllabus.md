@@ -2,7 +2,7 @@
 
 ## Course description
 
-This course offer R language training for students who have undergraduate level statistical background but zero programming experience.
+This course offers R language training for students who have undergraduate level statistical background but zero programming experience.
 
 ## Contents
 
