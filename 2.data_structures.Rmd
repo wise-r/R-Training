@@ -1,0 +1,643 @@
+---
+title: "Chapter 2. Data Structures"
+date: "Saturday, September 27, 2014"
+output:
+  html_document:
+    highlight: tango
+    keep_md: yes
+    number_sections: yes
+    theme: readable
+    toc: yes
+---
+
+**NOTICE**: This chapter is modified mainly based on [Advanced R](http://adv-r.had.co.nz/) and [Quick-R](http://www.statmethods.net/)
+
+R's base data structures can be organised by their dimensionality (1d, 2d, or nd) and whether they're homogeneous (all contents must be of the same type) or heterogeneous (the contents can be of different types). This gives rise to the five data types most often used in data analysis: 
+
+|    | Homogeneous   | Heterogeneous |
+|----|---------------|---------------|
+| 1d | Atomic vector | List          |
+| 2d | Matrix        | Data frame    |
+| nd | Array         |               |
+
+
+Almost all other objects are built upon these foundations. Note that R has no 0-dimensional, or scalar types. Individual numbers or strings, which you might think would be scalars, are actually vectors of length one. 
+
+Given an object, the best way to understand what data structures it's composed of is to use `str()`. `str()` is short for structure and it gives a compact, human readable description of any R data structure. 
+
+
+## Vectors
+
+The basic data structure in R is the vector. Vectors come in two flavours: atomic vectors and lists. They have three common properties:
+
+* Type, `typeof()`, what it is.
+* Length, `length()`, how many elements it contains.
+* Attributes, `attributes()`, additional arbitrary metadata.
+
+They differ in the types of their elements: all elements of an atomic vector must be the same type, whereas the elements of a list can have different types.
+
+NB: `is.vector()` does not test if an object is a vector. Instead it returns `TRUE` only if the object is a vector with no attributes apart from names. Use `is.atomic(x) || is.list(x)` to test if an object is actually a vector.
+
+### Atomic vectors
+
+There are four common types of atomic vectors that I'll discuss in detail: logical, integer, double (often called numeric), complex and character. There is one rare types that I will not discuss further: raw.
+
+Given a vector, you can determine its type with `typeof()`, or check if it's a specific type with an "is" function: `is.character()`, `is.double()`, `is.integer()`, `is.logical()`, or, more generally, `is.atomic()`. 
+
+Atomic vectors are usually created with `c()`, short for combine:
+
+#### Logical vectors
+
+```{r logical, eval=FALSE}
+# Use TRUE and FALSE (or T and F) to create logical vectors
+TRUE
+FALSE
+T
+F
+logical(10)
+c(TRUE,TRUE,FALSE)
+as.logical(c(0,1,-2,3))
+as.logical("false")
+as.logical("a")
+is.logical(c(FALSE,FALSE,TRUE))
+```
+
+#### Integer vectors
+
+```{r integer, eval=FALSE}
+# With the L suffix, you get an integer rather than a double
+2L
+integer(10)
+c(1L,2L,3L)
+1L:5L
+as.integer(c(1,2,3.9))
+is.integer(c(1,2,3))
+is.integer(c(1L,2L,3L))
+```
+
+#### Numeric vectors
+
+`is.numeric()` is a general test for the "numberliness" of a vector and returns `TRUE` for both integer and double vectors.
+
+```{r numeric, eval=FALSE}
+1.5
+numeric(10)
+c(1,2,3,4.5)
+c(1,2,c(2,3))
+1:5
+seq(1,10,2)
+seq(3,length.out = 10)
+is.numeric(c(1,2,3,4.5))
+1+1:5
+1:5+1
+
+dbl <- c(1, 2.5, 4.5)
+typeof(dbl)
+is.numeric(dbl)
+is.double(dbl)
+is.atomic(dbl)
+```
+
+
+#### Complex vectors
+
+```{r complex, eval=FALSE}
+1+2i
+1+0i
+complex(10)
+c(1+i,1+2i,1+3i)
+as.complex(c(1,2,3))
+is.complex(c(1+i,1+2i,1+3i))
+```
+
+
+#### Character vectors
+
+```{r character, eval=FALSE}
+"hello, world!"
+character(3)
+c("Hello","World")
+c('This','is','something')
+"This is a 'character' \"enclosed\" in double quotes"
+'This is a "character" \'enclosed\' in single quotes'
+```
+
+
+Atomic vectors are always flat, even if you nest `c()`'s:
+```{r}
+c(1, c(2, c(3, 4)))
+# the same as
+c(1, 2, 3, 4)
+```
+
+Missing values are specified with `NA`, which is a logical vector of length 1. `NA` will always be coerced to the correct type if used inside `c()`, or you can create `NA`s of a specific type with `NA_real_` (a double vector), `NA_integer_` and `NA_character_`. 
+
+
+#### Coercion
+
+All elements of an atomic vector must be the same type, so when you attempt to combine different types they will be __coerced__ to the most flexible type. Types from least to most flexible are: logical, integer, double, and character.
+
+For example, combining a character and an integer yields a character:
+
+```{r}
+str(c("a", 1))
+```
+
+When a logical vector is coerced to an integer or double, `TRUE` becomes 1 and `FALSE` becomes 0. This is very useful in conjunction with `sum()` and `mean()`
+
+```{r}
+x <- c(FALSE, FALSE, TRUE)
+as.numeric(x)
+
+# Total number of TRUEs
+sum(x)
+
+# Proportion that are TRUE
+mean(x)
+```
+
+Coercion often happens automatically. Most mathematical functions (`+`, `log`, `abs`, etc.) will coerce to a double or integer, and most logical operations (`&`, `|`, `any`, etc) will coerce to a logical. You will usually get a warning message if the coercion might lose information. If confusion is likely, explicitly coerce with `as.character()`, `as.double()`, `as.integer()`, or `as.logical()`. 
+
+
+### Lists
+
+Lists are different from atomic vectors because their elements can be of any type, including lists. You construct lists by using `list()` instead of `c()`: 
+
+```{r}
+x <- list(1:3, "a", c(TRUE, FALSE, TRUE), c(2.3, 5.9))
+str(x)
+```
+
+
+An ordered collection of objects (components). A list allows you to gather a variety of (possibly unrelated) objects under one name.
+
+```{r list, eval=FALSE}
+l1 <- list(a=1,b=2,c=3)
+l1$a
+l1["a"]
+l1[["a"]]
+l1[c("a","b")]
+names(l1) <- c("A","B","C")
+l1$d <- 4
+
+l2 <- list(a=c(1,2,3),b=c("x","y","z","w"))
+l2$b
+
+is.list(l1)
+as.list(c(1,2,3))
+
+l3 <- as.list(c(a=1,b=2,c=3))
+l3$d
+l3$d <- c("hello","world")
+l3
+
+l4 <- list(a=1,b=2,c=3)
+c4 <- unlist(l4)
+l4 <- list(a=1,b=2,c="hello")
+c4 <- unlist(l4)
+```
+
+Lists are sometimes called __recursive__ vectors, because a list can contain other lists. This makes them fundamentally different from atomic vectors.
+
+```{r}
+x <- list(list(list(list())))
+str(x)
+is.recursive(x)
+```
+
+`c()` will combine several lists into one. If given a combination of atomic vectors and lists, `c()` will coerce the vectors to lists before combining them. Compare the results of `list()` and `c()`:
+
+```{r}
+x <- list(list(1, 2), c(3, 4))
+y <- c(list(1, 2), c(3, 4))
+str(x)
+str(y)
+```
+
+The `typeof()` a list is `list`. You can test for a list with `is.list()` and coerce to a list with `as.list()`. You can turn a list into an atomic vector with `unlist()`. If the elements of a list have different types, `unlist()` uses the same coercion rules as `c()`.
+
+```{r}
+l4 <- list(a=1,b=2,c=3)
+unlist(l4)
+l4 <- list(a=1,b=2,c="hello")
+unlist(l4)
+```
+
+Lists are used to build up many of the more complicated data structures in R. For example, both data frames and linear models objects (as produced by `lm()`) are lists:
+
+```{r}
+is.list(mtcars)
+
+mod <- lm(mpg ~ wt, data = mtcars)
+is.list(mod)
+```
+
+
+### Exercises
+
+1. What are the six types of atomic vector? How does a list differ from an
+   atomic vector?
+
+1. What makes `is.vector()` and `is.numeric()` fundamentally different to
+   `is.list()` and `is.character()`?
+
+1. Test your knowledge of vector coercion rules by predicting the output of
+   the following uses of `c()`:
+
+    ```{r, eval=FALSE}
+    c(1, FALSE)
+    c("a", 1)
+    c(list(1), "a")
+    c(TRUE, 1L)
+    ```
+
+1. Why is `1 == "1"` true? Why is `-1 < FALSE` true? Why is `"one" < 2` false?
+
+1. Why is the default missing value, `NA`, a logical vector? What's special
+   about logical vectors? (Hint: think about `c(FALSE, NA_character_)`.)
+
+
+
+## Attributes
+
+All objects can have arbitrary additional attributes, used to store metadata about the object. Attributes can be thought of as a named list (with unique names). Attributes can be accessed individually with `attr()` or all at once (as a list) with `attributes()`. 
+
+```{r}
+y <- 1:10
+attr(y, "my_attribute") <- "This is a vector"
+attr(y, "my_attribute")
+attributes(y)
+str(attributes(y))
+```
+
+The `structure()` function returns a new object with modified attributes: \indexc{structure()}
+
+```{r}
+structure(1:10, my_attribute = "This is a vector")
+```
+
+By default, most attributes are lost when modifying a vector:
+
+```{r}
+attributes(y[1])
+attributes(sum(y))
+```
+
+The only attributes not lost are the three most important:
+
+* Names, a character vector giving each element a name. 
+
+* Dimensions, used to turn vectors into matrices and arrays.
+
+* Class, used to implement the S3 object system.
+ 
+Each of these attributes has a specific accessor function to get and set values. When working with these attributes, use `names(x)`, `class(x)`, and `dim(x)`, *not* `attr(x, "names")`, `attr(x, "class")`, and `attr(x, "dim")`.
+
+#### Names
+
+You can name a vector in three ways:
+
+* When creating it: `x <- c(a = 1, b = 2, c = 3)`.
+
+* By modifying an existing vector in place: 
+  `x <- 1:3; names(x) <- c("a", "b", "c")`. 
+
+* By creating a modified copy of a vector: 
+  `x <- setNames(1:3, c("a", "b", "c"))`. 
+
+Names don't have to be unique. However, character subsetting is the most important reason to use names and it is most useful when the names are unique.
+
+Not all elements of a vector need to have a name. If some names are missing, `names()` will return an empty string for those elements. If all names are missing, `names()` will return `NULL`.
+
+```{r}
+y <- c(a = 1, 2, 3)
+names(y)
+
+z <- c(1, 2, 3)
+names(z)
+```
+
+You can create a new vector without names using `unname(x)`, or remove names in place with `names(x) <- NULL`.
+
+
+### Factors
+
+One important use of attributes is to define factors. A factor is a vector that can contain only predefined values, and is used to store categorical data. Factors are built on top of integer vectors using two attributes: the `class()`, "factor", which makes them behave differently from regular integer vectors, and the `levels()`, which defines the set of allowed values. 
+
+```{r}
+x <- factor(c("a", "b", "b", "a"))
+x
+class(x)
+levels(x)
+
+# You can't use values that are not in the levels
+x[2] <- "c"
+x
+
+# NB: you can't combine factors
+c(factor("a"), factor("b"))
+```
+
+Factors are useful when you know the possible values a variable may take, even if you don't see all values in a given dataset. Using a factor instead of a character vector makes it obvious when some groups contain no observations:
+
+```{r}
+sex_char <- c("m", "m", "m")
+sex_factor <- factor(sex_char, levels = c("m", "f"))
+
+table(sex_char)
+table(sex_factor)
+```
+
+Sometimes when a data frame is read directly from a file, a column you'd thought would produce a numeric vector instead produces a factor. This is caused by a non-numeric value in the column, often a missing value encoded in a special way like `.` or `-`. To remedy the situation, coerce the vector from a factor to a character vector, and then from a character to a double vector. (Be sure to check for missing values after this process.) Of course, a much better plan is to discover what caused the problem in the first place and fix that; using the `na.strings` argument to `read.csv()` is often a good place to start.
+
+```{r}
+# Reading in "text" instead of from a file here:
+z <- read.csv(text = "value\n12\n1\n.\n9")
+typeof(z$value)
+as.double(z$value)
+# Oops, that's not right: 3 2 1 4 are the levels of a factor, 
+# not the values we read in!
+class(z$value)
+
+# We can fix it now:
+as.double(as.character(z$value))
+# Or change how we read it in:
+z <- read.csv(text = "value\n12\n1\n.\n9", na.strings=".")
+typeof(z$value)
+class(z$value)
+z$value
+# Perfect! :)
+```
+
+Unfortunately, most data loading functions in R automatically convert character vectors to factors. This is suboptimal, because there's no way for those functions to know the set of all possible levels or their optimal order. Instead, use the argument `stringsAsFactors = FALSE` to suppress this behaviour, and then manually convert character vectors to factors using your knowledge of the data. A global option, `options(stringsAsFactors = FALSE)`, is available to control this behaviour, but I don't recommend using it. Changing a global option may have unexpected consequences when combined with other code (either from packages, or code that you're `source()`ing), and global options make code harder to understand because they increase the number of lines you need to read to understand how a single line of code will behave.
+
+While factors look (and often behave) like character vectors, they are actually integers. Be careful when treating them like strings. Some string methods (like `gsub()` and `grepl()`) will coerce factors to strings, while others (like `nchar()`) will throw an error, and still others (like `c()`) will use the underlying integer values. For this reason, it's usually best to explicitly convert factors to character vectors if you need string-like behaviour. In early versions of R, there was a memory advantage to using factors instead of character vectors, but this is no longer the case. 
+
+
+### Exercises
+
+1.  An early draft used this code to illustrate `structure()`:
+
+    ```{r}
+    structure(1:5, comment = "my attribute")
+    ```
+
+    But when you print that object you don't see the comment attribute.
+    Why? Is the attribute missing, or is there something else special about
+    it? (Hint: try using help.) 
+
+1.  What happens to a factor when you modify its levels? 
+    
+    ```{r, results = "none"}
+    f1 <- factor(letters)
+    levels(f1) <- rev(levels(f1))
+    ```
+
+1.  What does this code do? How do `f2` and `f3` differ from `f1`?
+
+    ```{r, results = "none"}
+    f2 <- rev(factor(letters))
+
+    f3 <- factor(letters, levels = rev(letters))
+    ```
+
+
+--------------------------------------------
+
+
+
+## Matrices and arrays 
+
+Adding a `dim()` attribute to an atomic vector allows it to behave like a multi-dimensional __array__. A special case of the array is the __matrix__, which has two dimensions. Matrices are used commonly as part of the mathematical machinery of statistics. Arrays are much rarer, but worth being aware of. 
+
+Matrices and arrays are created with `matrix()` and `array()`, or by using the assignment form of `dim()`.
+
+
+All columns in a matrix must have the same mode(numeric, character, etc.) and the same length. The general format is
+
+    mymatrix <- matrix(vector, nrow=r, ncol=c, byrow=FALSE, 
+           dimnames=list(char_vector_rownames, char_vector_colnames))
+.
+
+
+
+```{r}
+# Two scalar arguments to specify rows and columns
+a <- matrix(1:6, ncol = 3, nrow = 2)
+# One vector argument to describe all dimensions
+b <- array(1:12, c(2, 3, 2))
+
+# You can also modify an object in place by setting dim()
+c <- 1:6
+dim(c) <- c(3, 2)
+c
+dim(c) <- c(2, 3)
+c
+```
+
+`length()` and `names()` have high-dimensional generalisations:
+
+* `length()` generalises to `nrow()` and `ncol()` for matrices, and `dim()`
+  for arrays. \indexc{nrow()} \indexc{ncol()} \indexc{dim()}
+
+* `names()` generalises to `rownames()` and `colnames()` for matrices, and
+  `dimnames()`, a list of character vectors, for arrays. \indexc{rownames()}
+  \indexc{colnames()} \indexc{dimnames()}
+
+```{r}
+length(a)
+nrow(a)
+ncol(a)
+rownames(a) <- c("A", "B")
+colnames(a) <- c("a", "b", "c")
+a
+
+length(b)
+dim(b)
+dimnames(b) <- list(c("one", "two"), c("a", "b", "c"), c("A", "B"))
+b
+
+matrix(c(1,2,3,4,5,6,7,8,9),nrow=3,byrow=TRUE,
+  dimnames=list(c("r1","r2","r3"),c("c1","c2","c3")))
+
+a1 <- array(c(0,1,2,3,4,5,6,7,8,9),dim=c(1,5,2),
+  dimnames=list(c("r1"),c("c1","c2","c3","c4","c5"),c("k1","k2")))
+```
+
+`c()` generalises to `cbind()` and `rbind()` for matrices, and to `abind()` (provided by the `abind` package) for arrays. You can transpose a matrix with `t()`; the generalised equivalent for arrays is `aperm()`. 
+
+You can test if an object is a matrix or array using `is.matrix()` and `is.array()`, or by looking at the length of the `dim()`. `as.matrix()` and `as.array()` make it easy to turn an existing vector into a matrix or array.
+
+Vectors are not the only 1-dimensional data structure. You can have matrices with a single row or single column, or arrays with a single dimension. They may print similarly, but will behave differently. The differences aren't too important, but it's useful to know they exist in case you get strange output from a function (`tapply()` is a frequent offender). As always, use `str()` to reveal the differences. 
+
+```{r}
+str(1:3)                   # 1d vector
+str(matrix(1:3, ncol = 1)) # column vector
+str(matrix(1:3, nrow = 1)) # row vector
+str(array(1:3, 3))         # "array" vector
+```
+
+While atomic vectors are most commonly turned into matrices, the dimension attribute can also be set on lists to make list-matrices or list-arrays: 
+
+```{r}
+l <- list(1:3, "a", TRUE, 1.0)
+dim(l) <- c(2, 2)
+l
+
+## the same as
+l <- list(1:3, "a", TRUE, 1.0)
+(dim(l) <- c(2, 2))
+```
+
+These are relatively esoteric data structures, but can be useful if you want to arrange objects into a grid-like structure. For example, if you're running models on a spatio-temporal grid, it might be natural to preserve the grid structure by storing the models in a 3d array. 
+
+### Exercises
+
+1.  What does `dim()` return when applied to a vector?
+
+1.  If `is.matrix(x)` is `TRUE`, what will `is.array(x)` return?
+
+1.  How would you describe the following three objects? What makes them
+    different to `1:5`?
+
+    ```{r}
+    x1 <- array(1:5, c(1, 1, 5))
+    x2 <- array(1:5, c(1, 5, 1))
+    x3 <- array(1:5, c(5, 1, 1))
+    ```
+
+
+## Data frames
+
+A data frame is the most common way of storing data in R, and if [used systematically](http://vita.had.co.nz/papers/tidy-data.pdf) makes data analysis easier. Under the hood, a data frame is a list of equal-length vectors. This makes it a 2-dimensional structure, so it shares properties of both the matrix and the list.  This means that a data frame has `names()`, `colnames()`, and `rownames()`, although `names()` and `colnames()` are the same thing. The `length()` of a data frame is the length of the underlying list and so is the same as `ncol()`; `nrow()` gives the number of rows. 
+
+You can subset a data frame like a 1d structure (where it behaves like a list), or a 2d structure (where it behaves like a matrix).
+
+### Creation
+
+You create a data frame using `data.frame()`, which takes named vectors as input:
+
+```{r}
+df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+str(df)
+```
+
+Beware `data.frame()`'s default behaviour which turns strings into factors. Use `stringAsFactors = FALSE` to suppress this behaviour: 
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE)
+str(df)
+```
+
+### Testing and coercion
+
+Because a `data.frame` is an S3 class, its type reflects the underlying vector used to build it: the list. To check if an object is a data frame, use `class()` or test explicitly with `is.data.frame()`:
+
+```{r}
+typeof(df)
+class(df)
+is.data.frame(df)
+```
+
+You can coerce an object to a data frame with `as.data.frame()`:
+
+* A vector will create a one-column data frame.
+
+* A list will create one column for each element; it's an error if they're 
+  not all the same length.
+  
+* A matrix will create a data frame with the same number of columns and rows.
+
+### Combining data frames
+
+You can combine data frames using `cbind()` and `rbind()`: 
+
+```{r}
+cbind(df, data.frame(z = 3:1))
+rbind(df, data.frame(x = 10, y = "z"))
+```
+
+When combining column-wise, the number of rows must match, but row names are ignored. When combining row-wise, both the number and names of columns must match. Use `plyr::rbind.fill()` to combine data frames that don't have the same columns. 
+
+It's a common mistake to try and create a data frame by `cbind()`ing vectors together. This doesn't work because `cbind()` will create a matrix unless one of the arguments is already a data frame. Instead use `data.frame()` directly:
+
+```{r}
+bad <- data.frame(cbind(a = 1:2, b = c("a", "b")))
+str(bad)
+good <- data.frame(a = 1:2, b = c("a", "b"),
+  stringsAsFactors = FALSE)
+str(good)
+```
+
+The conversion rules for `cbind()` are complicated and best avoided by ensuring all inputs are of the same type.
+
+### Special columns
+
+Since a data frame is a list of vectors, it is possible for a data frame to have a column that is a list: 
+
+```{r}
+df <- data.frame(x = 1:3)
+df$y <- list(1:2, 1:3, 1:4)
+df
+```
+
+However, when a list is given to `data.frame()`, it tries to put each item of the list into its own column, so this fails:
+
+```{r, error = TRUE}
+data.frame(x = 1:3, y = list(1:2, 1:3, 1:4))
+```
+
+A workaround is to use `I()`, which causes `data.frame()` to treat the list as one unit:
+
+```{r}
+dfl <- data.frame(x = 1:3, y = I(list(1:2, 1:3, 1:4)))
+str(dfl)
+dfl[2, "y"]
+```
+
+`I()` adds the `AsIs` class to its input, but this can usually be safely ignored. 
+
+Similarly, it's also possible to have a column of a data frame that's a matrix or array, as long as the number of rows matches the data frame:
+
+```{r}
+dfm <- data.frame(x = 1:3, y = I(matrix(1:9, nrow = 3)))
+str(dfm)
+dfm[2, "y"]
+```
+
+Use list and array columns with caution: many functions that work with data frames assume that all columns are atomic vectors. \index{data frames|)}
+
+
+### Other useful functions
+
+```{r useful_fun, eval=FALSE}
+ls()       # list current objects
+rm(object) # delete an object
+
+x <- head(mtcars) # print first 6 rows of mydata
+tail(mtcars)
+
+newobject <- edit(object) # edit copy and save as newobject 
+fix(object)               # edit in place
+```
+
+
+### Exercises
+
+1.  What attributes does a data frame possess?
+
+1.  What does `as.matrix()` do when applied to a data frame with 
+    columns of different types?
+
+1.  Can you have a data frame with 0 rows? What about 0 columns?
+
+## Answers
+
+Find here: <http://adv-r.had.co.nz/Data-structures.html>
+
+
+
+
