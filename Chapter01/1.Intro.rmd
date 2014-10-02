@@ -10,18 +10,18 @@ output:
     toc: yes
 ---
 
-For introduction of R language, you are recommended to read the [first chapter of R in Action](http://www.manning.com/kabacoff/) and [introduction part of Advanced R](http://adv-r.had.co.nz/Introduction.html).
+> R is, at its heart, an elegant and beautiful language, well tailored for data analysis and statistics. --- Hadley Wickham
+
+For introduction of R language, you are recommended to read the [first chapter of R in Action](http://www.manning.com/kabacoff/) and the [introduction part of Advanced R](http://adv-r.had.co.nz/Introduction.html).
 
 
 ## R Installation
 
 ### Install R
 
-You can follow my [instruction][install] to install and upgrade R on Windows.
+You can follow my [instruction][install] which is described below to install and upgrade R on Windows.
 
-First, you need to download  and install [CRAN][] and [RStudio][].
-
-After the installations, run the following codes to set up a global library.
+First, you need to download  [R][] and [RStudio][] and install them. After the installations, run the following codes to set up a global library.
 
 ```{r set_lib, eval=FALSE}
 chooseCRANmirror() # Choose XMU
@@ -44,10 +44,35 @@ New.R.RunMe()
 
 ### RStudio settings
 
-In RStudio, Tools --> Global Options --> Code Editing/Appearance.
+Open up your RStudio. In RStudio, Tools --> Global Options --> Code Editing/Appearance. See [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio) for details.
+
+Most used RStudio keyboard shortcuts:
+
+|Description                           |Keyboard(Windows)|
+| ------------------------------------ | -----------     | 
+| Clear console                        | Ctrl+L          |
+|Interrupt currently executing command |  Esc            |
+| Run current line/selection           |Ctrl+Enter       |
+|Run current document                  |Ctrl+Alt+R       |
+|Find and Replace                      |Ctrl+F           |
+|Find in Files                         | Ctrl+Shift+F    |
+|Comment/uncomment current line/selection|Ctrl+Shift+C   |
+|Check Spelling                        | F7              |
+|Undo                                  |Ctrl+Z           |
+|Redo                                  |Ctrl+Shift+Z     |
+|Delete Line                           |Ctrl+D           |
+|Indent                                |Tab (at beginning of line)|
+|Show help for function at cursor      |F1               |
+|Show source code for function at cursor|F2              |
+|Attempt completion                    |Tab or Ctrl+Space|
+
+See [Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) for more details.
+
 
 
 ## Getting help
+
+Use `Ctrl+Enter` to run the selected codes or the line where you cursor on. The output is shown in the `Console` window.
 
 ```{r get help, eval=FALSE}
 help.start()   # general help
@@ -202,12 +227,14 @@ plot(fit)
 
 ## An example
 
-Use `Ctrl+Enter` to run the selected codes or the line where you cursor on. The output is shown in the `Console` window.
+An example at the end.
 
-```{r exmaple, eval=FALSE}
+```{r example, eval=FALSE}
 setwd("E:/Project/WISE R Club/LearnR")
 install.packages("ggplot2")
 library(ggplot2)
+help(package = "ggplot2")
+vignette(package = "ggplot2")
 ?qplot
 str(diamonds)
 example(qplot) # example of qplot function
@@ -217,11 +244,9 @@ qplot(color, price/carat, data = diamonds, geom="jitter", alpha = I(1/5))
 Notices: R is a case sensitive language.
 
 
-## References
+## References and resources
 
-[Install and Upgrade R on Windows](http://xiaojunsun.github.io/wise-r-club/tutorial/Install_Upgrade_R_on_Windows.html)
-
-[Try R](http://tryr.codeschool.com)
+### References
 
 [Quick-R](http://www.statmethods.net/)
 
@@ -229,13 +254,35 @@ Notices: R is a case sensitive language.
 
 [Learn R by Kun Ren](http://renkun.me/learnR/)
 
+### Resources
+
+The following online resources are also very helpful for R language learning. I suggest you explore some of them by yourself.
+
+[Try R](http://tryr.codeschool.com)
+
+[R Reference Card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+
+[RDataMining](http://www.rdatamining.com/home)
+
+[RSeek](http://www.rseek.org/)
+
 [R Tutorial by Kelly Black](http://www.cyclismo.org/tutorial/R/)
+
+[Cookbook for R](http://www.cookbook-r.com/)
 
 [StackOverflow](http://stackoverflow.com/questions/tagged/r?sort=votes&pageSize=15)
 
+[R Statistics](http://www.r-statistics.com/)
+
+[R NoteBook](http://ramnathv.github.io/rNotebook/)
+
+[A short list of the most useful R commands](http://www.personality-project.org/r/r.commands.html)
+
+[Google's R Style Guide](http://google-styleguide.googlecode.com/svn/trunk/Rguide.xml)
+
+</p>
 </p>
 
-
 [install]: http://xiaojunsun.github.io/wise-r-club/tutorial/Install_Upgrade_R_on_Windows.html
-[CRAN]: http://mirrors.xmu.edu.cn/CRAN/
+[R]: http://mirrors.xmu.edu.cn/CRAN/
 [RStudio]: http://www.rstudio.com/products/rstudio/download/
