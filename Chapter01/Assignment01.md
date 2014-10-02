@@ -38,4 +38,6 @@ This assignment serves as your very first step into the R world. You will know w
 
 ## Packages
 
-In the `Package` section in wikipedia page of `R Programming Language`, which page on the CRAN website is described to list a wide range of tasks? Go to that page after you name some of the fields that you are most familiar with, such as Finance and Econometrics, and find one of the related packages that you think what it does. Install and load the package in RStudio, and try examples in the package help pages.
+1. In the `Package` section in wikipedia page of `R Programming Language`, which page on the CRAN website is described to list a wide range of tasks? Go to that page after you name some of the fields that you are most familiar with, such as Finance and Econometrics, and find one of the related packages that you think what it does. Install and load the package in RStudio, and try examples in the package help pages.
+
+2. Are there any packages that should have been in the task view but are actually not? If you are to develop some packages that you think is useful, what functionality would you like to offer? How would you design the package? How would you guarantee its reliability? Would you provide constant support to the package? If not, what might happen if you suspend supporting it?
