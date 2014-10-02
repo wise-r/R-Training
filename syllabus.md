@@ -21,7 +21,7 @@ Four lecturers: @renkun-ken, @renqian, @XiaojunSun and @MiltonDeng.
 	5. Packages
 	6. Reusing results
 	7. An example
-    8. References
+    8. References and resources
 2. Data Structures
 	1. Vectors
 		1. Atomic vectors
