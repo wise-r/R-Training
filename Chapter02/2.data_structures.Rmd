@@ -10,9 +10,9 @@ output:
     toc: yes
 ---
 
-**NOTICE**: This chapter is modified mainly based on [Advanced R](http://adv-r.had.co.nz/) and [Quick-R](http://www.statmethods.net/)
+**NOTICE**: This chapter is modified mainly based on [Advanced R](http://adv-r.had.co.nz/) and [Quick-R](http://www.statmethods.net/). Some codes in this document are provided by RenKun. Best regards!
 
-R's base data structures can be organised by their dimensionality (1d, 2d, or nd) and whether they're homogeneous (all contents must be of the same type) or heterogeneous (the contents can be of different types). This gives rise to the five data types most often used in data analysis: 
+R's base data structures can be organized by their dimensionality (1d, 2d, or nd) and whether they're homogeneous (all contents must be of the same type) or heterogeneous (the contents can be of different types). This gives rise to the five data types most often used in data analysis: 
 
 |    | Homogeneous   | Heterogeneous |
 |----|---------------|---------------|
@@ -402,10 +402,6 @@ While factors look (and often behave) like character vectors, they are actually 
     ```
 
 
---------------------------------------------
-
-
-
 ## Matrices and arrays 
 
 Adding a `dim()` attribute to an atomic vector allows it to behave like a multi-dimensional __array__. A special case of the array is the __matrix__, which has two dimensions. Matrices are used commonly as part of the mathematical machinery of statistics. Arrays are much rarer, but worth being aware of. 
@@ -418,7 +414,6 @@ All columns in a matrix must have the same mode(numeric, character, etc.) and th
     mymatrix <- matrix(vector, nrow=r, ncol=c, byrow=FALSE, 
            dimnames=list(char_vector_rownames, char_vector_colnames))
 .
-
 
 
 ```{r}
@@ -638,6 +633,4 @@ fix(object)               # edit in place
 
 Find here: <http://adv-r.had.co.nz/Data-structures.html>
 
-
-
-
+</p>
