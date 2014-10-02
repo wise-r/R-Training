@@ -4,7 +4,7 @@ This assignment serves as your very first step into the R world. You will know w
 
 ## RGUI
 
-1. Download and install the latest version of R from CRAN. What's new in the latest version compared to the former one? Who contribute to make such changes? How did they manage to make those advances in your opinion? Although most of the improvement might not seem to make sense for you for the moment, choose one that looks most appealing and get familiar with the issues involved and decide how importance it is.
+1. Download and install the latest version of R from CRAN. What's new in the latest version compared to the former one? Who contribute to making such changes? How did they manage to make those advances in your opinion? Although most of the improvement might not seem to make sense for you for the moment, choose one that looks most appealing and get familiar with the issues involved and decide how important it is.
 
 2. Locate and run the `RGUI` program from the start-up menu, or `\bin\x64` or `\bin\i386` in your installing folder. Type in RGUI console whatever statements that you deem reasonable and test whether R recognizes your instructions. If you know some other programming languages, try a variety of expressions, see how RGUI responds to them, and discuss how the syntax of R differs and has in common.
 
