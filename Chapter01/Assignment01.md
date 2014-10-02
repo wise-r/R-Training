@@ -12,15 +12,15 @@ This assignment serves as your very first step into the R world. You will know w
 
 1. Download, install and launch the latest version of RStudio from RStudio.com. Go to `Tools` `Global Options` `Appearance` and choose your favorite editor theme for your coding experience in R. 
 
-2. Get familiar with the user interface. For What (programming) languages does the text editor provide intrinsic support in terms of highlighting(e.g. type `function` or `for` in the text editor for an R source file and these *keyword* will be highlighted)? For what (programming) languages does the text editor provide auto-completion(e.g. type `sys` and press `Tab`)? How do the text editor and the `Console` interact with each other?
+2. Get familiar with the user interface. For what (programming) languages does the text editor provide intrinsic support in terms of highlighting(e.g. type `function` or `for` in the text editor for an R source file and these *keyword* will be highlighted)? For what (programming) languages does the text editor provide auto-completion(e.g. type `sys` and press `Tab`)? How do the text editor and the `Console` interact with each other?
 
-3. Get to know the functionality of each menu strip, toolbox, and buttons, especially of `Run` and `Source` buttons above the text editor. What's the difference between these two buttons? Take a look at the `Package` tab in the bottom-right panel, find `stats`, enter several entries in the package, and test the sample code in the `Examples` section in corresponding `Help` pages. Imagine cases in which each function in the package might be used.
+3. Get to know the functionalities of each menu strip, toolbox, and buttons, especially of `Run` and `Source` buttons above the text editor. What's the difference between these two buttons? Take a look at the `Package` tab in the bottom-right panel, find `stats`, enter several entries in the package, and test the sample code in the `Examples` section in corresponding `Help` pages. Imagine some scenario in which each function in the package might be used.
 
-4. Find in `RStudio Docs` in `Help` menu how to debug an R program by setting break points and try.
+4. Find in `RStudio Docs` in `Help` menu how to debug an R program by setting *break points* and try.
 
 ## The R Programming Language
 
-1. Go to wikipedia and search the entry `R Programming Language`. The source code for the R software environment is written primarily in what programming languages? Make some guess on what that means. What statistical features of the R programming language are described? What's the relationship between the R programming language and other programming languages, such as C, C++, Java, Python, and those in the .NET family?
+1. Go to wikipedia and search the entry `R Programming Language`. The source code for the R software environment is written primarily in what programming languages? Make some guess on how this might work. What statistical features of the R programming language are described? What's the relationship between the R programming language and other programming languages, such as C, C++, Java, Python, and those in the .NET family?
 
 2. Follow the examples one by one either in RGUI or in RStudio. In each example, the result of which statements can be easily predicted? Which statement brings surprising result to you? From these examples, how do you define a variable? How do you define a function? What kind of objects, such as vector and matrix, are involved in the examples? Are functions objects in the R programming language? Why or why not? Can you pass a function as an argument to another function? Refer to `Help` for those statement that don't seem to make sense to you.
 
