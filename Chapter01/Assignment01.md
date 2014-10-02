@@ -1,6 +1,6 @@
 # Assignment 01 for R-Training Project
 
-This assignment surves as your very first step into the R world. You will know what kind of development environments you can work in with the R Programming Language, the appearance of the language itself and how it has evolved, and the proliferate and supportive community that makes R a widely accepted necessity for data-oriented problems.
+This assignment serves as your very first step into the R world. You will know what kind of development environments you can work in with the R Programming Language, the appearance of the language itself and how it has evolved, and the proliferate and supportive community that makes R a widely accepted necessity for data-oriented problems.
 
 ## RGUI
 
@@ -24,7 +24,7 @@ This assignment surves as your very first step into the R world. You will know w
 
 2. Follow the examples one by one either in RGUI or in RStudio. In each example, the result of which statements can be easily predicted? Which statement brings surprising result to you? From these examples, how do you define a variable? How do you define a function? What kind of objects, such as vector and matrix, are involved in the examples? Are functions objects in the R programming language? Why or why not? Can you pass a function as an argument to another function? Refer to `Help` for those statement that don't seem to make sense to you.
 
-3. Go to the wikipedia pages of C, C++, Java, C#, Python, MATLAB, SPSS, SAS and other programming languages or environments that you know, take note of the differnt `programming paradigms` each of them supports, and try to make sense of each of the `programming paradigms`, such as `functional`, `object-oriented` and `array`, by carefully comparing the introductions and code examples. 
+3. Go to the wikipedia pages of C, C++, Java, C#, Python, MATLAB, SPSS, SAS and other programming languages or environments that you know, take note of the different `programming paradigms` each of them supports, and try to make sense of each of the `programming paradigms`, such as `functional`, `object-oriented` and `array`, by carefully comparing the introductions and code examples. 
 
 ## The R Community
 
@@ -34,7 +34,7 @@ This assignment surves as your very first step into the R world. You will know w
 
 3. Go to `Github` and see how `social coding` is carried out for R projects.
 
-4. Go to `R-Bloggers` and `Capital of Statistics` and carefully read several latest articals. What do the authers talk about? How do they investigate the problem using the R programming language? What difficulties do they meet during the process?
+4. Go to `R-Bloggers` and `Capital of Statistics` and carefully read several latest articles. What do the authors talk about? How do they investigate the problem using the R programming language? What difficulties do they meet during the process?
 
 ## Packages
 
