@@ -7,11 +7,11 @@ This assignment serves as your very first step into the R world. You will know w
 1. Download and install the latest version of R from CRAN. What's new in the latest version compared to the former one?  
 **Notes:** Changes in R 3.1.1 contains three parts, which are new features, installation and included software, bug fixes.  
 * Who contribute to making such changes?  
-**Notes:**There may be a link like "(PR#15760)" after the changes. This leads to a description of when and who discovered the corresponding bugs. It seems that it is the users who pointed out the bugs and desired modification and then the R core team modified R to be a better version.  
+**Notes:** There may be a link like "(PR#15760)" after the changes. This leads to a description of when and who discovered the corresponding bugs. It seems that it is the users who pointed out the bugs and desired modification and then the R core team modified R to be a better version.  
 * How did they manage to make those advances in your opinion?  
-**Notes:**R core team collected opinions from users all over the world, which leads to a broad and timely suggestions when there are some bugs.  
+**Notes:** R core team collected opinions from users all over the world, which leads to a broad and timely suggestions when there are some bugs.  
 * Although most of the improvement might not seem to make sense for you for the moment, choose one that looks most appealing and get familiar with the issues involved and decide how important it is.  
-**Notes:**Finally, I find some changes I can roughly understand what it means."dbinom(x, n), pbinom(), dpois(), etc, are slightly less restrictive in checking if n is integer-valued. (Wish of PR#15734.)" I guess that since this changes, we can use the distribution and probability function of binomial variables in a wider way, or say in more relaxed conditions.
+**Notes:** Finally, I find some changes I can roughly understand what it means."dbinom(x, n), pbinom(), dpois(), etc, are slightly less restrictive in checking if n is integer-valued. (Wish of PR#15734.)" I guess that since this changes, we can use the distribution and probability function of binomial variables in a wider way, or say in more relaxed conditions.
 
 2. Locate and run the `RGUI` program from the start-up menu, or `\bin\x64` or `\bin\i386` in your installing folder. Type in RGUI console whatever statements that you deem reasonable and test whether R recognizes your instructions. If you know some other programming languages, try a variety of expressions, see how RGUI responds to them, and discuss how the syntax of R differs and has in common.  
 **Notes:** I think the most particular character for R languish is that the smallest unit for calculation is a vector. No matter the class and length of the vector, it is the smallest unit for calculation.
@@ -68,7 +68,7 @@ This assignment serves as your very first step into the R world. You will know w
 3. Go to `Github` and see how `social coding` is carried out for R projects.  
 **Notes:** We can `fork` the copy of [R-Training in github](https://github.com/wise-r/R-Training) in our own accout and `Clone in Desktop`. After finishing the assignment, we can submit/share it online. 
 4. Go to `R-Bloggers` and `Capital of Statistics` and carefully read several latest articles. What do the authors talk about? How do they investigate the problem using the R programming language? What difficulties do they meet during the process?  
-**Notes:** The link for the listing webpages: [R-Bloggers](http://www.r-bloggers.com/) and [Capital of Statistics](http://cos.name/).
+**Notes:** The links for the listing webpages: [R-Bloggers](http://www.r-bloggers.com/) and [Capital of Statistics](http://cos.name/).
 
 ## Packages
 
