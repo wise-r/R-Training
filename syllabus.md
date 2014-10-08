@@ -6,7 +6,24 @@ This course offers R language training for students who have undergraduate level
 
 ## Lecturers
 
-Four lecturers: @renkun-ken, @renqian, @XiaojunSun and @MiltonDeng.
+Four lecturers: @[RenKun-Ken][], @[RenQian][], @[XiaojunSun][] and @[GuanghongDeng][].
+
+Ch1---Ch3, Ch5 : [XiaojunSun][];
+
+Ch4, Ch6 : [GuanghongDeng][];
+
+Ch7 : [RenKun-Ken][];
+
+Ch8 : [RenKun-Ken][], [RenQian][], [GuanghongDeng][], [XiaojunSun][]
+
+[RenQian][] kindly designed all assignments for this course.
+
+## Classroom
+
+- Every Wednesday afternoon 16:30--18:20.
+- Economic Building **N202**.
+- You'd better bring your own computer.
+- Take care of the devices in the classroom.
 
 ## Contents
 
@@ -68,7 +85,22 @@ Four lecturers: @renkun-ken, @renqian, @XiaojunSun and @MiltonDeng.
 7. Popular Packages
 8. Topics
 
+## Time Schedule
+
+The time schedule is very flexible and the courses may not be conducted in the order listed in the Contents.
+
+Oct. 2nd, 2014, Chapter 1, XiaojunSun. Finished.
+
+Oct. 8th, 2014, Chapter 2, XiaojunSun.
+
+
 ## References
 
 Three main references of the course materials are [Advanced R](http://adv-r.had.co.nz/), [Quick-R](http://www.statmethods.net/) and [Learn R by Kun Ren](http://renkun.me/learnR/).
 
+
+
+[RenKun-Ken]: https://github.com/renkun-ken
+[RenQian]: https://github.com/renqian
+[XiaojunSun]: https://github.com/XiaojunSun
+[GuanghongDeng]: https://github.com/MiltonDeng
