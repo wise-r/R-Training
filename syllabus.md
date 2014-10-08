@@ -20,7 +20,7 @@ Ch8 : [RenKun-Ken][], [RenQian][], [GuanghongDeng][], [XiaojunSun][]
 
 ## Classroom
 
-- Every Wednesday afternoon 16:30--18:20.
+- Every Wednesday afternoon 16:30--18:00.
 - Economic Building **N202**.
 - You'd better bring your own computer.
 - Take care of the devices in the classroom.
