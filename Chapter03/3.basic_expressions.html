@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Chapter 3. Basic Expressions and Basic Functions</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Chapter 3. Basic Expressions and Basic Functions</h1>
+
+<p>Sunday, October 12, 2014  </p>
+
+<p><strong>NOTICE</strong>: The main references of this material are: i) <a href="http://renkun.me/learnR/">learnR</a>: Chapter 3. Basic Expressions, Chapter 4. Basic Functions; ii) <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>: Chapter 3. Evaluation of Expressions, Chapter 4. Functions. </p>
+
+<h2>Introduction</h2>
+
+<p>Expressions and functions play essential roles in R programming, especially when the analytic tasks are too complicated to use several existed functions to complete. In these situations, loops and functions are often used to control the execute procedure of the program. In this chapter we will explore some basic but useful skills in R programming, and we will also have some examples related to finance study to show how to organize your idea, and transform mathematical models to R programs.</p>
+
+<h2>Basic Expressions</h2>
+
+<h3>Assignment</h3>
+
+<p>Assignment might be the most fundamental expressions used in any programming languages. An object in R can be imagined as a box, and  we are able to put anything we want into the box by assignning contents to that object. </p>
+
+<p>For example, if we want to create a sequence starts from 1 and ends at 5, and assign it to <code>x</code>, we have several choices to perform this assignment:</p>
+
+<pre><code class="r">1:5       # it will be displayed in console but stored in nowhere 
+x &lt;- 1:5  # first way to assign it
+1:5 -&gt; x  # second way
+x = 1:5   # third way
+</code></pre>
+
+<p>We may be familiar with the third way but the most often used method is the first one (using <code>&lt;-</code>). </p>
+
+<p>Assignment chain is also allowed in R:</p>
+
+<pre><code class="r">x &lt;- y &lt;- z &lt;- 0
+</code></pre>
+
+<p>Notice the expression <code>0</code> is evaluated only once here. To verify how it works, we can change <code>0</code> to a random number generator.</p>
+
+<pre><code class="r">x &lt;- y &lt;- z &lt;- rnorm(1)
+c(x, y, z)
+</code></pre>
+
+<h3>Operators</h3>
+
+<p><code>+,-,*,/</code> are all operators in R language. There are a number of operators in R. You may refer to <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a> Page 10 to find all of them. Here we divide these operators into three catgories: mathematical operators and logical operators and others, and we will use some examples to show how to use them.</p>
+
+<h4>Mathematical Operators</h4>
+
+<p>Mathematical operators are easy to understand:</p>
+
+<pre><code class="r">x &lt;- 2
+y &lt;- 5
+x + y
+x - y 
+x * y
+x / y
+x ^ y
+x : y
+y %% x  # modulus 5%%2 = 1
+y %/% x # interger divide 5%/%2 = 2
+</code></pre>
+
+<p>Notice, <code>*</code> is different from what we have learned in math class when it is applied to matrix. To perform the so-called &ldquo;matrix production&rdquo;, we should use <code>%*%</code>.</p>
+
+<pre><code class="r">x &lt;- matrix(1:9, nrow=3)
+y &lt;- matrix(1:9, nrow=3, byrow=TRUE)
+x * y
+x %*% y
+</code></pre>
+
+<h4>Logical Operators</h4>
+
+<p>Logical operators, or Boolean operators are used to calculate logical relationships. The first thing we should know is that logical value, which includes <code>TRUE</code> and <code>FALSE</code>, is also a kind of variables. </p>
+
+<pre><code class="r">x &lt;- TRUE
+class(x)
+</code></pre>
+
+<p>The simplest situation happens when we want to know whether something is true or not. </p>
+
+<pre><code class="r">x &lt;- 1
+y &lt;- 2
+z &lt;- 2
+x &gt; y
+z &gt;= y
+z == y
+x == y
+z != y
+</code></pre>
+
+<p>These operators are used to compare the values of two variables. R also provides a useful operator <code>%in%</code> to find if a certain element exist in another object.</p>
+
+<pre><code class="r">y &lt;- c(1, 3, 5, 6)
+3 %in% y
+4 %in% y
+</code></pre>
+
+<p>Using these operators we can find if a statement is true or not. However, sometimes we also need to calculate the relationship between two statemetn. The basic calculations of two logical values are <code>and</code>, <code>or</code> and <code>not</code>, which combines two simple statement to one complex/compound statement, or reverse the logical value. </p>
+
+<pre><code class="r">x &lt;- TRUE
+y &lt;- FALSE
+x | y
+x &amp; y
+!(x) &amp; y
+!(x | y)
+</code></pre>
+
+<p>Notice, two operators are provided to calculation <code>and</code>, <code>&amp;</code> and <code>&amp;&amp;</code>, and two operators for <code>or</code>, <code>|</code> and <code>||</code>. </p>
+
+<pre><code class="r">x &lt;- c(TRUE, FALSE, TRUE)
+y &lt;- c(FALSE, TRUE, TRUE)
+x &amp; y
+x &amp;&amp; y
+x | y
+x || y
+</code></pre>
+
+<h4>Other Operators</h4>
+
+<p><code>$</code> and <code>~</code> are also listed as operators, but we will talk about it in further discussions.</p>
+
+<h3>Indexing and Subsetting</h3>
+
+<p>Indexing and subsetting are important because </p>
+
+<h3>Conditions</h3>
+
+<p>How to tell my computer I want to execute certain codes only if some conditions are satisfied, and skip those lines when not satisfied? </p>
+
+<pre><code class="r">if( condition ){
+  statement
+}
+</code></pre>
+
+<p>In this code, R will evaluate the condition and test if the conditional statement satisfied or not. The statement in bracket will be executed only if condition equals TRUE. </p>
+
+<pre><code class="r">x &lt;- 2
+if( x == 1 ){
+  z &lt;- 1
+}
+z
+</code></pre>
+
+<p>We may add <code>else</code> to test further conditions.</p>
+
+<pre><code class="r">if( condition.1 ){
+  statement.1
+} else if( condition.2 ) {
+  statement.2
+} else {
+  statement.3
+}
+</code></pre>
+
+<p>For example,</p>
+
+<pre><code class="r">signal &lt;- 1
+if( state == 1 ){
+  action &lt;- &quot;Open Long&quot;
+} else if( state == -1 ){
+  action &lt;- &quot;Open Short&quot;
+} else if( state == 0 ){
+  action &lt;- &quot;Close Position&quot;
+} else {
+  action &lt;- &quot;Continue&quot;
+}
+
+action
+</code></pre>
+
+<p>For convenience, if-else sentence can be written in a single line.</p>
+
+<pre><code class="r">if( condition ) statement.1 else statement.2
+</code></pre>
+
+<p>Function <code>ifelse()</code> is very useful when the statement line is short:</p>
+
+<pre><code class="r">x &lt;- 3
+y &lt;- ifelse(x == 2, x^2, x*3)
+y
+</code></pre>
+
+<p>Besides the logical operator we have mentioned, function <code>any()</code> and <code>all()</code> are also often used when there are a lot of conditions to test.</p>
+
+<pre><code class="r">x &lt;- c(1, 3, 5, 2)
+all( x &gt; 2 )
+any( x == 3)
+</code></pre>
+
+<p><code>switch()</code> is also used to deals with conditions, but in a different way.</p>
+
+<pre><code class="r">switch(1,&quot;x&quot;,&quot;y&quot;) # the n-th argument will be returned.
+switch(2,&quot;x&quot;,&quot;y&quot;)
+</code></pre>
+
+<p>If the number is larger than the number of followed arguments, a <code>NULL</code> will be returned.</p>
+
+<pre><code class="r">switch(3,&quot;x&quot;,&quot;y&quot;)
+</code></pre>
+
+<p><code>switch()</code> performs differently when the input is a character.</p>
+
+<pre><code class="r">switch(&quot;a&quot;,a=1,b=2)
+switch(&quot;b&quot;,a=1,b=2)
+switch(&quot;c&quot;,a=1,b=2)
+</code></pre>
+
+<h3>Looping</h3>
+
+<p>Computers does not know how to prove a new mathematical theorem, but knows how to make simple calculations thousands times withins seconds. 
+By looping, we divide a complicated task into repeated calculations. For example, using <code>for-looping</code>:</p>
+
+<pre><code class="r">y &lt;- 0
+for( i in 1:100 ){
+  y &lt;- y+i
+}
+y
+</code></pre>
+
+<p>From this example you may guess how <code>for-loop</code> works in R. General syntax for <code>for-loop</code> is</p>
+
+<pre><code class="r">for( iterator in vector ){
+  statement to be evaluated each time
+}
+</code></pre>
+
+<p>Notice 1, iterator is changing during the looping, and will still exist after loop (a kind of side effect).</p>
+
+<p>Notice 2, we usually use vectors for looping, but <code>list</code>, <code>data.frame</code> can also be used for looping.</p>
+
+<pre><code class="r">df &lt;- data.frame(a=rnorm(100, mean=1), b=rnorm(100, mean=0), c=rnorm(100, mean=3) )
+for( var in df ){
+  message( mean(var) )
+}
+
+lists &lt;- list(a=rnorm(100, mean=1), b=rnorm(50, mean=0), c=rnorm(800, mean=3))
+for( x in lists ){
+  message( mean(x) )
+}
+</code></pre>
+
+<p><code>next</code> and <code>break</code> gives us further controls over the program. <code>next</code> skips following lines in this time, and <code>break</code> stops the whole iteration.</p>
+
+<pre><code class="r">s &lt;- 0
+for( i in 1:10 ){
+  if( i == 3 ) next
+  if( i == 6 ) break
+  s &lt;- s+i
+}
+</code></pre>
+
+<p>Notice the positions of <code>next</code> and <code>break</code> lines will change the result.</p>
+
+<pre><code class="r">s &lt;- 0
+for( i in 1:10 ){
+  if( i == 6 ) break
+  s &lt;- s+i
+  if( i == 3 ) next
+}
+</code></pre>
+
+<p><code>repeat</code> and <code>while</code> are also used for looping. </p>
+
+<pre><code class="r">repeat statement
+</code></pre>
+
+<p>Remember you must give termination condition and use <code>break</code> to stop the loop, and also the termination condition must be satisfied some time, or you will never get out the loop! Actually it not easy to know whether the termination condition will be satisfied in the &ldquo;future&rdquo;, and for this reason <code>repeat-loop</code> is seldom used in practice.</p>
+
+<p>The last way to loop is <code>while-loop</code>.</p>
+
+<pre><code class="r">while( condition ){
+  statement
+}
+</code></pre>
+
+<p><code>while-loop</code> is very similar to <code>repeat-loop</code>, but gives the termination condition more explicitly. In <code>while-loop</code>, the statement will be evaluated only if <code>condition</code> equals <code>TRUE</code>.</p>
+
+<p>For the same reason, <code>while-loop</code> is also seldom used, but they are useful especially when we do not know when to stop the loop.</p>
+
+<pre><code class="r">s &lt;- 0
+i &lt;- 1  # remember to creat iterator by yourself.
+while( s &lt; 1000 ){
+  s &lt;- s + i
+  i &lt;- i + 1  # remember to renew your interator.
+}
+</code></pre>
+
+<p>However, we are still able to use <code>for-loop</code> to do the same thing.</p>
+
+<pre><code class="r">s &lt;- 0
+for( i in 1:1e8 ){
+  if( s+i &gt;= 100 ) break
+  s &lt;- s + i
+}
+</code></pre>
+
+<h3>Examples:</h3>
+
+<p>Equipped with the knowledge of operators, conditions and looping, we now come into a new topic: build your own program.</p>
+
+<p>This is a very exiting part because it shows how you can tell your computer to work as you like and finish your tasks. Even the most complicated algorithm is generated from these structures, and you can show how creative you are using these basic tools.</p>
+
+</body>
+
+</html>
+
