@@ -18,7 +18,7 @@ Ch8 : [RenKun-Ken][], [RenQian][], [GuanghongDeng][], [XiaojunSun][]
 
 [RenQian][] kindly designed all assignments for this course.
 
-## Classroom
+## Time & Place
 
 - Every Wednesday afternoon 16:30--18:00.
 - Economic Building **N202**.
@@ -84,14 +84,6 @@ Ch8 : [RenKun-Ken][], [RenQian][], [GuanghongDeng][], [XiaojunSun][]
 6. Basic Graphs
 7. Popular Packages
 8. Topics
-
-## Time Schedule
-
-The time schedule is very flexible and the courses may not be conducted in the order listed in the Contents.
-
-Oct. 2nd, 2014, Chapter 1, XiaojunSun. Finished.
-
-Oct. 8th, 2014, Chapter 2, XiaojunSun.
 
 
 ## References
