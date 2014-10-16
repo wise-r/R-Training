@@ -1,6 +1,4 @@
----
-output: pdf_document
----
+
 
 # Assignment 2 for R-Training Project
 
