@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=9" >
 
-<title>Chapter 3. Basic Expressions and Basic Functions</title>
+<title>Chapter 4. Basic Expressions and Function Writing</title>
 
 <style type="text/css">
 body, td {
@@ -174,20 +174,49 @@ hljs.initHighlightingOnLoad();
 </script>
 
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 
 
 </head>
 
 <body>
-<h1>Chapter 3. Basic Expressions and Basic Functions</h1>
+<h1>Chapter 4. Basic Expressions and Function Writing</h1>
 
 <p>Sunday, October 12, 2014  </p>
 
-<p><strong>NOTICE</strong>: The main references of this material are: i) <a href="http://renkun.me/learnR/">learnR</a>: Chapter 3. Basic Expressions, Chapter 4. Basic Functions; ii) <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>: Chapter 3. Evaluation of Expressions, Chapter 4. Functions. </p>
+<p><strong>NOTICE</strong>: The main references of this material are: i) <a href="http://renkun.me/learnR/">learnR</a>: Chapter 3. Basic Expressions; ii) <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>: Chapter 3. Evaluation of Expressions, Chapter 4. Functions. </p>
 
 <h2>Introduction</h2>
 
 <p>Expressions and functions play essential roles in R programming, especially when the analytic tasks are too complicated to use several existed functions to complete. In these situations, loops and functions are often used to control the execute procedure of the program. In this chapter we will explore some basic but useful skills in R programming, and we will also have some examples related to finance study to show how to organize your idea, and transform mathematical models to R programs.</p>
+
+<h3>Contents</h3>
+
+<ul>
+<li><p>Basic Expressions</p>
+
+<ul>
+<li>1.1 Assignment</li>
+<li>1.2 Operators</li>
+<li>1.3 Conditions</li>
+<li>1.4 Loop</li>
+</ul></li>
+<li><p>Function Writing</p>
+
+<ul>
+<li>2.1 Elements of a Function</li>
+<li>2.2 Syntax</li>
+<li>2.3 Arguments</li>
+<li>2.4 Return</li>
+<li>2.5 Statements</li>
+<li>2.6 Apply Family</li>
+<li>2.7 Further Topics</li>
+</ul></li>
+<li><p>Applications</p></li>
+</ul>
 
 <h2>Basic Expressions</h2>
 
@@ -198,7 +227,12 @@ hljs.initHighlightingOnLoad();
 <p>For example, if we want to create a sequence starts from 1 and ends at 5, and assign it to <code>x</code>, we have several choices to perform this assignment:</p>
 
 <pre><code class="r">1:5       # it will be displayed in console but stored in nowhere 
-x &lt;- 1:5  # first way to assign it
+</code></pre>
+
+<pre><code>## [1] 1 2 3 4 5
+</code></pre>
+
+<pre><code class="r">x &lt;- 1:5  # first way to assign it
 1:5 -&gt; x  # second way
 x = 1:5   # third way
 </code></pre>
@@ -208,12 +242,19 @@ x = 1:5   # third way
 <p>Assignment chain is also allowed in R:</p>
 
 <pre><code class="r">x &lt;- y &lt;- z &lt;- 0
+c(x, y, z)
+</code></pre>
+
+<pre><code>## [1] 0 0 0
 </code></pre>
 
 <p>Notice the expression <code>0</code> is evaluated only once here. To verify how it works, we can change <code>0</code> to a random number generator.</p>
 
 <pre><code class="r">x &lt;- y &lt;- z &lt;- rnorm(1)
 c(x, y, z)
+</code></pre>
+
+<pre><code>## [1] -0.2642 -0.2642 -0.2642
 </code></pre>
 
 <h3>Operators</h3>
@@ -227,13 +268,51 @@ c(x, y, z)
 <pre><code class="r">x &lt;- 2
 y &lt;- 5
 x + y
-x - y 
-x * y
-x / y
-x ^ y
-x : y
-y %% x  # modulus 5%%2 = 1
-y %/% x # interger divide 5%/%2 = 2
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r">x - y 
+</code></pre>
+
+<pre><code>## [1] -3
+</code></pre>
+
+<pre><code class="r">x * y
+</code></pre>
+
+<pre><code>## [1] 10
+</code></pre>
+
+<pre><code class="r">x / y
+</code></pre>
+
+<pre><code>## [1] 0.4
+</code></pre>
+
+<pre><code class="r">x ^ y
+</code></pre>
+
+<pre><code>## [1] 32
+</code></pre>
+
+<pre><code class="r">x : y
+</code></pre>
+
+<pre><code>## [1] 2 3 4 5
+</code></pre>
+
+<pre><code class="r">y %% x  # modulus 5%%2 = 1
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
+<pre><code class="r">y %/% x # interger divide 5%/%2 = 2
+</code></pre>
+
+<pre><code>## [1] 2
 </code></pre>
 
 <p>Notice, <code>*</code> is different from what we have learned in math class when it is applied to matrix. To perform the so-called &ldquo;matrix production&rdquo;, we should use <code>%*%</code>.</p>
@@ -241,7 +320,21 @@ y %/% x # interger divide 5%/%2 = 2
 <pre><code class="r">x &lt;- matrix(1:9, nrow=3)
 y &lt;- matrix(1:9, nrow=3, byrow=TRUE)
 x * y
-x %*% y
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    8   21
+## [2,]    8   25   48
+## [3,]   21   48   81
+</code></pre>
+
+<pre><code class="r">x %*% y
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   66   78   90
+## [2,]   78   93  108
+## [3,]   90  108  126
 </code></pre>
 
 <h4>Logical Operators</h4>
@@ -252,16 +345,42 @@ x %*% y
 class(x)
 </code></pre>
 
+<pre><code>## [1] &quot;logical&quot;
+</code></pre>
+
 <p>The simplest situation happens when we want to know whether something is true or not. </p>
 
 <pre><code class="r">x &lt;- 1
 y &lt;- 2
 z &lt;- 2
 x &gt; y
-z &gt;= y
-z == y
-x == y
-z != y
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">z &gt;= y
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">z == y
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">x == y
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">z != y
+</code></pre>
+
+<pre><code>## [1] FALSE
 </code></pre>
 
 <p>These operators are used to compare the values of two variables. R also provides a useful operator <code>%in%</code> to find if a certain element exist in another object.</p>
@@ -276,9 +395,27 @@ z != y
 <pre><code class="r">x &lt;- TRUE
 y &lt;- FALSE
 x | y
-x &amp; y
-!(x) &amp; y
-!(x | y)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">x &amp; y
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">!(x) &amp; y
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">!(x | y)
+</code></pre>
+
+<pre><code>## [1] FALSE
 </code></pre>
 
 <p>Notice, two operators are provided to calculation <code>and</code>, <code>&amp;</code> and <code>&amp;&amp;</code>, and two operators for <code>or</code>, <code>|</code> and <code>||</code>. </p>
@@ -286,18 +423,32 @@ x &amp; y
 <pre><code class="r">x &lt;- c(TRUE, FALSE, TRUE)
 y &lt;- c(FALSE, TRUE, TRUE)
 x &amp; y
-x &amp;&amp; y
-x | y
-x || y
+</code></pre>
+
+<pre><code>## [1] FALSE FALSE  TRUE
+</code></pre>
+
+<pre><code class="r">x &amp;&amp; y
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">x | y
+</code></pre>
+
+<pre><code>## [1] TRUE TRUE TRUE
+</code></pre>
+
+<pre><code class="r">x || y
+</code></pre>
+
+<pre><code>## [1] TRUE
 </code></pre>
 
 <h4>Other Operators</h4>
 
 <p><code>$</code> and <code>~</code> are also listed as operators, but we will talk about it in further discussions.</p>
-
-<h3>Indexing and Subsetting</h3>
-
-<p>Indexing and subsetting are important because </p>
 
 <h3>Conditions</h3>
 
@@ -317,6 +468,9 @@ if( x == 1 ){
 z
 </code></pre>
 
+<pre><code>## [1] 2
+</code></pre>
+
 <p>We may add <code>else</code> to test further conditions.</p>
 
 <pre><code class="r">if( condition.1 ){
@@ -331,7 +485,8 @@ z
 <p>For example,</p>
 
 <pre><code class="r">signal &lt;- 1
-if( state == 1 ){
+
+if( signal == 1 ){
   action &lt;- &quot;Open Long&quot;
 } else if( state == -1 ){
   action &lt;- &quot;Open Short&quot;
@@ -342,6 +497,9 @@ if( state == 1 ){
 }
 
 action
+</code></pre>
+
+<pre><code>## [1] &quot;Open Long&quot;
 </code></pre>
 
 <p>For convenience, if-else sentence can be written in a single line.</p>
@@ -356,17 +514,36 @@ y &lt;- ifelse(x == 2, x^2, x*3)
 y
 </code></pre>
 
+<pre><code>## [1] 9
+</code></pre>
+
 <p>Besides the logical operator we have mentioned, function <code>any()</code> and <code>all()</code> are also often used when there are a lot of conditions to test.</p>
 
 <pre><code class="r">x &lt;- c(1, 3, 5, 2)
 all( x &gt; 2 )
-any( x == 3)
+</code></pre>
+
+<pre><code>## [1] FALSE
+</code></pre>
+
+<pre><code class="r">any( x == 3)
+</code></pre>
+
+<pre><code>## [1] TRUE
 </code></pre>
 
 <p><code>switch()</code> is also used to deals with conditions, but in a different way.</p>
 
 <pre><code class="r">switch(1,&quot;x&quot;,&quot;y&quot;) # the n-th argument will be returned.
-switch(2,&quot;x&quot;,&quot;y&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;x&quot;
+</code></pre>
+
+<pre><code class="r">switch(2,&quot;x&quot;,&quot;y&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;y&quot;
 </code></pre>
 
 <p>If the number is larger than the number of followed arguments, a <code>NULL</code> will be returned.</p>
@@ -377,11 +554,21 @@ switch(2,&quot;x&quot;,&quot;y&quot;)
 <p><code>switch()</code> performs differently when the input is a character.</p>
 
 <pre><code class="r">switch(&quot;a&quot;,a=1,b=2)
-switch(&quot;b&quot;,a=1,b=2)
-switch(&quot;c&quot;,a=1,b=2)
 </code></pre>
 
-<h3>Looping</h3>
+<pre><code>## [1] 1
+</code></pre>
+
+<pre><code class="r">switch(&quot;b&quot;,a=1,b=2)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
+<pre><code class="r">switch(&quot;c&quot;,a=1,b=2)
+</code></pre>
+
+<h3>Loop</h3>
 
 <p>Computers does not know how to prove a new mathematical theorem, but knows how to make simple calculations thousands times withins seconds. 
 By looping, we divide a complicated task into repeated calculations. For example, using <code>for-looping</code>:</p>
@@ -390,7 +577,11 @@ By looping, we divide a complicated task into repeated calculations. For example
 for( i in 1:100 ){
   y &lt;- y+i
 }
+
 y
+</code></pre>
+
+<pre><code>## [1] 5050
 </code></pre>
 
 <p>From this example you may guess how <code>for-loop</code> works in R. General syntax for <code>for-loop</code> is</p>
@@ -408,11 +599,22 @@ y
 for( var in df ){
   message( mean(var) )
 }
+</code></pre>
 
-lists &lt;- list(a=rnorm(100, mean=1), b=rnorm(50, mean=0), c=rnorm(800, mean=3))
+<pre><code>## 0.9600560648219
+## -0.00938217959033242
+## 3.05916288982538
+</code></pre>
+
+<pre><code class="r">lists &lt;- list(a=rnorm(100, mean=1), b=rnorm(50, mean=0), c=rnorm(800, mean=3))
 for( x in lists ){
   message( mean(x) )
 }
+</code></pre>
+
+<pre><code>## 0.784561781408941
+## -0.0814670461694088
+## 2.99539552574136
 </code></pre>
 
 <p><code>next</code> and <code>break</code> gives us further controls over the program. <code>next</code> skips following lines in this time, and <code>break</code> stops the whole iteration.</p>
@@ -423,6 +625,11 @@ for( i in 1:10 ){
   if( i == 6 ) break
   s &lt;- s+i
 }
+
+s
+</code></pre>
+
+<pre><code>## [1] 12
 </code></pre>
 
 <p>Notice the positions of <code>next</code> and <code>break</code> lines will change the result.</p>
@@ -433,6 +640,11 @@ for( i in 1:10 ){
   s &lt;- s+i
   if( i == 3 ) next
 }
+
+s
+</code></pre>
+
+<pre><code>## [1] 15
 </code></pre>
 
 <p><code>repeat</code> and <code>while</code> are also used for looping. </p>
@@ -459,6 +671,11 @@ while( s &lt; 1000 ){
   s &lt;- s + i
   i &lt;- i + 1  # remember to renew your interator.
 }
+
+s
+</code></pre>
+
+<pre><code>## [1] 1035
 </code></pre>
 
 <p>However, we are still able to use <code>for-loop</code> to do the same thing.</p>
@@ -468,9 +685,246 @@ for( i in 1:1e8 ){
   if( s+i &gt;= 100 ) break
   s &lt;- s + i
 }
+
+s
 </code></pre>
 
-<h3>Examples:</h3>
+<pre><code>## [1] 91
+</code></pre>
+
+<h2>Function Writing</h2>
+
+<h3>Elements of A Function</h3>
+
+<p>Before start learning how to write a function in R, we firstly consider what a function really is. </p>
+
+<p>In mathematics, a function is a kind of rule. When we put a number <code>x</code> into the function, it will be mapped to another number <code>y</code>. It seems like a black-box if we ignore how <code>x</code> is processed in it, but just focus on its input and output. </p>
+
+<p>In any kind of programming language, function works in the same way. Consider function <code>factorial()</code>:</p>
+
+<pre><code class="r">factorial(5)
+</code></pre>
+
+<pre><code>## [1] 120
+</code></pre>
+
+<p>This calculates \( n\times(n-1)\times(n-2)\dots\times1 \). Here the input number is <code>5</code>, the output number is <code>120</code>. And how the input number <code>5</code> is processed is given by the equation.</p>
+
+<p>So we can divide a function into three parts:</p>
+
+<ul>
+<li>1. The input (<code>5</code>)</li>
+<li>2. The output (<code>120</code>)</li>
+<li>3. How the input is procced into the output. ( \( n\times(n-1)\times(n-2)\dots\times1 \))</li>
+</ul>
+
+<p>In R (and in any other programming language), we define them as:</p>
+
+<ul>
+<li>1. Arguments</li>
+<li>2. Return</li>
+<li>3. Statements</li>
+</ul>
+
+<p>If we want to write a function, we must be clear about all these three things. Ask yourself what are given, what you want, and how to connect these two things.</p>
+
+<h3>Syntax</h3>
+
+<p>Different language has different syntax for writing functions. In R, we create a function in this way:</p>
+
+<pre><code class="r">function.name &lt;- function( argument.1, argument.2 ){
+  statements...
+  return(result)
+}
+</code></pre>
+
+<p>Here we just give a simple example:</p>
+
+<pre><code class="r">myfun &lt;- function(x, a, b){
+  y &lt;- a + b*x
+  return(y)
+}
+</code></pre>
+
+<p>Notice, a function is also a kind of object in R:</p>
+
+<pre><code class="r">class(myfun)
+</code></pre>
+
+<pre><code>## [1] &quot;function&quot;
+</code></pre>
+
+<p>When the function is created, we can use it just as any existed functions in R.</p>
+
+<pre><code class="r">myfun(x=3, intercept=1, slope=2)
+</code></pre>
+
+<pre><code>## Error: 参数没有用(intercept = 1, slope = 2)
+</code></pre>
+
+<h3>Arguments</h3>
+
+<h4>Argument Matching</h4>
+
+<p>All of the following are allowed in R:</p>
+
+<pre><code class="r">myfun(x=3, a=1, b=2)
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r">myfun(a=1, b=2, x=3)
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r">myfun(3, 1, 2)
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r">myfun(x=3, 1, 2)
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<p>The first two examples are called &ldquo;exact matching&rdquo;, since they give the exact names of all arguments.</p>
+
+<p>The second way is called &ldquo;positional matching&rdquo;. </p>
+
+<p>Also, we can use &ldquo;partial matching&rdquo; sometimes, though not recommended. (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 23, 4.3.2)</p>
+
+<h4>Default Value</h4>
+
+<p>We can set default values to the function:</p>
+
+<pre><code class="r">myfun &lt;- function(x, a=1, b=2){
+  y &lt;- a + b*x
+  return(y)
+}
+</code></pre>
+
+<p>We have different choices to call the function <code>myfun()</code>:</p>
+
+<pre><code class="r">myfun(1)
+</code></pre>
+
+<pre><code>## [1] 3
+</code></pre>
+
+<pre><code class="r">myfun(x=1, a=2, b=3)
+</code></pre>
+
+<pre><code>## [1] 5
+</code></pre>
+
+<pre><code class="r">myfun(1, a=3)
+</code></pre>
+
+<pre><code>## [1] 5
+</code></pre>
+
+<p>( This actually used a mechanism inside R called &ldquo;lazy evaluation&rdquo;. To know more, read: <a href="http://renkun.me/learnR/inside-r/lazy-evaluation.html">Lazy Evaluation</a> )</p>
+
+<h3>Return</h3>
+
+<h4>Using <code>return()</code></h4>
+
+<p>In the examples above, we used <code>return()</code> to tell R which object to be returned when we call the function. However, <code>return()</code> is not a must in a function. R will return the last shown object.</p>
+
+<pre><code class="r">myfun &lt;- function(x, a, b){
+  y &lt;- a + b*x
+}
+</code></pre>
+
+<pre><code class="r">myfun(3, 1, 2)
+
+z &lt;- myfun(3, 1, 2)
+z
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<p>Notice, at this time the result will not be shown, but it can still be assigned to another object.</p>
+
+<p>We can also simplify the function in this way:</p>
+
+<pre><code class="r">myfun &lt;- function(x, a, b) y &lt;- a + b*x
+
+z &lt;- myfun(3, 1, 2)
+z
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<p>However, we usually recommend to explicitly write <code>return()</code> to make the codes more readable.</p>
+
+<h4>What if we do not care about the return?</h4>
+
+<p>In some situations, we do not care about what its return is. We use these functions to plot, to write data and so on. These actions are also allowed in R, and they do not need a specific return. </p>
+
+<p>For example, we want a function to plot <code>n</code> random numbers:</p>
+
+<pre><code class="r">plot.rnorm &lt;- function(n){
+  rand &lt;- rnorm(n)
+  plot(rand)
+}
+</code></pre>
+
+<p>When we call this function, it will plot directly.</p>
+
+<pre><code class="r">plot.rnorm(100)
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAclBMVEX9/v0AAAAAADkAAGUAOTkAOWUAOY8AZrU5AAA5ADk5AGU5OWU5OY85j9plAABlADllAGVlOQBlOY9lZmVltf2POQCPOTmPZgCPtY+P29qP2/21ZgC1/rW1/v3ajzna/tra/v39tWX924/9/rX9/tr9/v251xIjAAAAJnRSTlP/////////////////////////////////////////////////AKd6gbwAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAyRSURBVHic7Z2Lets2EkaruBu73shxd+W0K6+1kWS+/ysuqVtk60YSA2CA/5wvidtP1hDEwWAAWqR/a0CS33I3APKAeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFFCxE/AMxHFB7wXYoN4URAvCuJFQbwoiBcF8aIgXhTEi4J4URBfGzevxu6+7frLiC+NSdOv5xFfGYgXBfGqUOPhGl7E9xynYIUT8X0rE1iBeFEQL4oT8dT41HgRD4lBvCiIFyVY/Oph8mXeNOvnt4GhE8DC4TKh4t9fZu3fqUvxbBWuECp+K/z1/kh8z5t04oP4K1hkfMvi90cyviiCa/z6adp9Wdz5E0+NvwKrelEQLwriRUG8KIgXBfGiIF4UxOcj62UGxGcj74VFxGcD8aIgXhVqPKQnuXh+YuaDpOJ3n87AvANSip80uVc0cADxoiQXT40/IUuXpK7xAfFqJc8kyHYuO4gXBfGq1F/jwQ+IFwXxoiBeFMSLgnhREC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kWpUzwf7rtJleL5DPdtEC8K4kWpUjw1/jZ1ioebIF4UxIuCeFE8iWdJlhBH4tmEpQTxoiBeFEfiqfEp8SQeEg5+xLsiXblDvCsQLwriVaHGQ1wQL0pd4rkS0JuqxHPtrz+IFwXxolQlnhrfn7rEQ28QXzojZznEF87YdQ3iCwfxUfC/WkR8DErYH0rV+FSJ6Eq87UkXKT6ZD0/ijduC+OtH8lPjEe8rEZOB+MZVIqaj0Bov6coxqcTXNzsnHcn2BwsVv36abLl7O4Tc8/k4VYlPekIRDhac8e8v0z6hEe/sYOFT/fr7vE/o2mo84seGjkz0gSZe48eHjsshR2qbaayoXXx1awsrEC9KPeI/7x+3/4v4CxQk/nq1vmSYGn+ecsTfyF1SexiIvxyx6rmiGvHmniqfQhyL/2wycQYiPlLoPm/P2fG5jx8ZxF9uADU+Sug+b6+55zPjV7ybjPPSDlsci3dCpTMP4m+BeOPQpYB449DFQI23DV0zBYwVxEeghOqA+Agg3i9RJ2PEO2VrPaZ5arxHJp0Zx+1LQrnix2cV4puCxQdM1pu3+p+M46IoHuuNqHgoWHxlaZv8bMoVXxXp5y/EuwDxTkg98yLeBxk8UOM9ILBlQPw5EC8qPsajR5ztPhGfBvs5JHAkIT4N5uJDAyI+DYhXxdtd3IgvFWp8eXhY4SM+PS6uEiA+PYgXBfGqUOPFMBNuEAjx1lyWYjbFWwRCvDFXpCC+ZhCP+NPXqPEVk2vJPvC4iC+ZI9lDp/8CxXvYBfvgWHb94l1c9/IB4kX50BVnJsJrcyPihzfAT6kZ99taDi9ewaH43B2ffeD1pjbxmUF8n+NWSDniK6vx2XFU4wNAvChli68j+bJQtPiCyq07eohfP0223L1ZhjYA8ePpl/Gv0/afxb1paAMQP55e4tfPb4d/zUJbQI0fTS/x7y+bjP/60zK0Lwr5Kbrhga+/vJvq31/aBg6c6YsSn6to5CtWRa/q7UD8JxBf53H7il/63M4ZQo3/yG5V/zSzDw1ZGbCdMw4NI7CbIAZcwDEOnYmit/6GS4KeU/3lGr96uPSayw4u+2JfavFXeH/Zlv/l6dUdl/0b0HUO5gpH4vfl/2gZMNkT2LQojO86F3NF6hq/uDjVJ8748BMfHcGFeDv61fjv8+X9hZ/OXa7/EXopZ+d7Fj9iNPfdzm3/WIYeQ9bOd1q8mnHd0u+ncz/m7Z/Vo7Z4v0QT37TOl5PJwM28zxpfI/HEjwJFyYhY48e0ZsR74sJ88Yu+Nd4+dHpYIRwRfMl2dGgr+qexpPhL3VNAjQ+4F3j0t1bDxXP2L/6GriE2BWs84kWpV7xiGg+h2hoP4yhAPMQA8WOIMwklndoQP4I4C8q0y1TEjwDxIaELBvEhoUuGGh8QunK8b0IRHwf3FxQRb8mvNEe8Eke2Ea/EsW1qvBDu0/wIxFviPc2PQLwoiBcF8aIgvjhsFhJ1iC9oURWM0dahCvElbaOCQfzHIyF+eJgrIN4f1PijQ/mu8R6bV4d4W6w9uZyQEH+CuacRAePPEYj/xa63HYhPMEcg/sDk01/DyEPzF/EpOfR2/rUY4lPiaQ1GjU9J19v5sz0RiP+Ap6yPSyHiUyUi4nc4EZ/MhwvxSUY54j8daXSnm+kyONkebUG8EXZNDI/UJ0IZ4gtYbCO+b+jKMJyUgkc54lPiaVKqpsaDObnEe8oPSTKJL2CZnp24uYF4r0TuIsR7pU7x1PibVCreC44HYJU13gu6JQfxjddfgxuXnOIddHicD1eWQEbxLjp8l+7Z2xGVcxmmLr7x045onD1BxLsoOVHxJr76DveCO/GQCGc1HnKCeFEQXym3FlCIr5ObW6Ys4lnOR8eleDcb+IopXbzRE54EZxiPNb6/eJu5gRnmDL5rPOKj4XtVj/ho+BZPjY+Gc/H14WUQhopfP0223L0NDK2Jm7ITnPHvL9NxoWtgePrWI75Zf59/CrlnfKsKYYTFisSPDX3hTSWNlzEWvZygM/FuEqIXZbX2IzbiF+fqfP3i3aTvCDyKL7g7y8GZeI3PuXvAWY3fvw/xsUG8KA7Fl7xkKgeP4iEBiBcF8aEUWpgQH0ipS1EZ8bESE/FDQ6clmh/EDw2dlnN+pD/XJSy+1Fy1QUX8mcRE/BXqEX8K4q9Qs/hSq7MNTsVLO0mCT/Has/An4iQB4r0TqS8Q34uMpUdKvLcan3MgDjn2gG5zKt4Ztzo/6jjtH3zQGLn+MuI33OhRL5UJ8eZczzrEDwldEV7EU+NT42wt2gfEi4J4URAvSn3iHdVbR005oTrxblbYrppyCuLj4agppyA+Ho6ackp14j0VVkdNOaE+8VURb+gg3jMRiwXiIxOUs4gvljB1iC+WQHXU+FJxu6VDfGS8bukQL4oH8V6TomociHdbBqsG8XnIPsshPgv5z9mB+PyjPz2IFwXxqmSf5RAvCuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFQfwgsl9pNQPxQ8j/sxUzED8ExBuELhHEG4QuEmp8eGjICuJFQbwoiBcF8aIgXhTEi5JbfD0b48IIFr96mHyZN836+W1g6MP3YD4HoeLfX2bt3yniSyNU/Fb46z3iC8Mi41sWvz+OEk+Nz0VwjV8/Tbsvi7uD+MmewKZBTHKv6iETiBfFRvxiOjw0ZAXxoiBeFGq8KIgX4fP2GvEanFwiRbwGiBcF8apQ42ED4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvCgxxYNn4ok/HgM2YWJEo2lnQXzGaIiPGY2mnQXxGaMhPmY0mnYWxGeMhviY0WjaWYzEQ2kgXhTEi4J4URAvCuJFQbwoiBcF8aIgXhQL8eunydefBnGazROTJzO7iJvHchoFe3/ZPszZJFp7nt0DI02CrR5/Reof0EB817uL+/A4Levv82b1x9ws4mIyM2ve66xZfv1pE607z4VRsGU3hHaRBgQ0EN893nh1+qTbMSy7Rr/OrCKu/vnnzKp5u4c420RbffvZRbII9vrl7zbCLtKAgAbiN2fRDmEj2lBGEd9//KfNAKNgq29/dVO9TbRdxtsE60zvIg0IaCC+nQANxXfPxjeKuJh2U59RsNXDZgwZRdvWYptgnfhdpAEBvWX85lnZRpnwbVNEzTJ+aE5dC/bHvFnevRWe8YY1fpNXVhEXm0+XT61q/L82fWoTbZeZRguGXDW+m5yNVvVb73YR979XxWhVv5lDLKLtMt4o2OPb/iQHBPS1j98m6czlPr4NY7b1bvdgdhcFsu3joUQQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KMriP34QefPBTB0QvwfxMrTiuzvidvdl/+PP2e4j1K9m9wk4Rl38w/ZOvdb1sh0AW+Xr5/8+29wY5Bh18Y+HW4/aqb677az7z8Vkmrtt0UH8/kt3X/7TZHOHS3eHU+0g/jjjdzP867+rL/GI395e+qvGL7vnFfzvR/Upj/jd3ab7Vf2X+f5pCnWjLF4axIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIvyf7UUoz8QtBr/AAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-34"/> </p>
+
+<p>Still, we want to know what if we assign it to an object.</p>
+
+<pre><code class="r">test &lt;- plot.rnorm(100)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-35"/> </p>
+
+<pre><code class="r">test
+</code></pre>
+
+<pre><code>## NULL
+</code></pre>
+
+<p>Think about why. The reason is <code>plot(rand)</code> is the last line in the function, and <code>plot()</code> function returns the <code>NULL</code>! </p>
+
+<p>Though we usually do not do it this way, we must be clear about what happens in a function. In these situations, one recommended way is to let the function <code>return(TRUE)</code>. This is a good habit especially in complex tasks. </p>
+
+<h3>Statements</h3>
+
+<p>There is nothing special to tell about statements, though these statements are the main body of a function. The reason is, you are writing in the same as you are writing an R script.</p>
+
+<h3>Apply Family</h3>
+
+<p>Here we get another </p>
+
+<h3>Further Topics</h3>
+
+<p>These futher topics are about the underlying mechanisms of R. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.</p>
+
+<ul>
+<li>Copy on Write</li>
+<li>Lazy Evaluation (<a href="http://renkun.me/learnR/inside-r/lazy-evaluation.html">learnR</a>, 8.1)</li>
+<li></li>
+<li>Scoping (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 20, 3.5)</li>
+<li>Debugging (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 40, 9)</li>
+<li>dot-dot-dot</li>
+<li>Profiling</li>
+<li>Memory Management</li>
+</ul>
+
+<h2>Examples:</h2>
 
 <p>Equipped with the knowledge of operators, conditions and looping, we now come into a new topic: build your own program.</p>
 

@@ -34,16 +34,8 @@ Assignment might be the most fundamental expressions used in any programming lan
 
 For example, if we want to create a sequence starts from 1 and ends at 5, and assign it to `x`, we have several choices to perform this assignment:
 
-
-```r
+```{r, eval=TRUE}
 1:5       # it will be displayed in console but stored in nowhere 
-```
-
-```
-## [1] 1 2 3 4 5
-```
-
-```r
 x <- 1:5  # first way to assign it
 1:5 -> x  # second way
 x = 1:5   # third way
@@ -52,25 +44,15 @@ We may be familiar with the third way but the most often used method is the firs
 
 Assignment chain is also allowed in R:
 
-
-```r
+```{r, eval=TRUE}
 x <- y <- z <- 0
 c(x, y, z)
 ```
-
-```
-## [1] 0 0 0
-```
 Notice the expression `0` is evaluated only once here. To verify how it works, we can change `0` to a random number generator.
 
-
-```r
+```{r, eval=TRUE}
 x <- y <- z <- rnorm(1)
 c(x, y, z)
-```
-
-```
-## [1] -0.2642 -0.2642 -0.2642
 ```
 
 ### Operators
@@ -81,158 +63,48 @@ c(x, y, z)
 
 Mathematical operators are easy to understand:
 
-
-```r
+```{r, eval=TRUE}
 x <- 2
 y <- 5
 x + y
-```
-
-```
-## [1] 7
-```
-
-```r
 x - y 
-```
-
-```
-## [1] -3
-```
-
-```r
 x * y
-```
-
-```
-## [1] 10
-```
-
-```r
 x / y
-```
-
-```
-## [1] 0.4
-```
-
-```r
 x ^ y
-```
-
-```
-## [1] 32
-```
-
-```r
 x : y
-```
-
-```
-## [1] 2 3 4 5
-```
-
-```r
 y %% x  # modulus 5%%2 = 1
-```
-
-```
-## [1] 1
-```
-
-```r
 y %/% x # interger divide 5%/%2 = 2
-```
-
-```
-## [1] 2
 ```
 
 Notice, `*` is different from what we have learned in math class when it is applied to matrix. To perform the so-called "matrix production", we should use `%*%`.
 
-
-```r
+```{r, eval=TRUE}
 x <- matrix(1:9, nrow=3)
 y <- matrix(1:9, nrow=3, byrow=TRUE)
 x * y
-```
-
-```
-##      [,1] [,2] [,3]
-## [1,]    1    8   21
-## [2,]    8   25   48
-## [3,]   21   48   81
-```
-
-```r
 x %*% y
-```
-
-```
-##      [,1] [,2] [,3]
-## [1,]   66   78   90
-## [2,]   78   93  108
-## [3,]   90  108  126
 ```
 
 #### Logical Operators
 
 Logical operators, or Boolean operators are used to calculate logical relationships. The first thing we should know is that logical value, which includes `TRUE` and `FALSE`, is also a kind of variables. 
 
-
-```r
+```{r, eval=TRUE}
 x <- TRUE
 class(x)
 ```
 
-```
-## [1] "logical"
-```
-
 The simplest situation happens when we want to know whether something is true or not. 
 
-
-```r
+```{r, eval=TRUE}
 x <- 1
 y <- 2
 z <- 2
 x > y
-```
-
-```
-## [1] FALSE
-```
-
-```r
 z >= y
-```
-
-```
-## [1] TRUE
-```
-
-```r
 z == y
-```
-
-```
-## [1] TRUE
-```
-
-```r
 x == y
-```
-
-```
-## [1] FALSE
-```
-
-```r
 z != y
-```
-
-```
-## [1] FALSE
 ```
 
 These operators are used to compare the values of two variables. R also provides a useful operator `%in%` to find if a certain element exist in another object.
@@ -245,76 +117,24 @@ y <- c(1, 3, 5, 6)
 
 Using these operators we can find if a statement is true or not. However, sometimes we also need to calculate the relationship between two statemetn. The basic calculations of two logical values are `and`, `or` and `not`, which combines two simple statement to one complex/compound statement, or reverse the logical value. 
 
-
-```r
+```{r, eval=TRUE}
 x <- TRUE
 y <- FALSE
 x | y
-```
-
-```
-## [1] TRUE
-```
-
-```r
 x & y
-```
-
-```
-## [1] FALSE
-```
-
-```r
 !(x) & y
-```
-
-```
-## [1] FALSE
-```
-
-```r
 !(x | y)
-```
-
-```
-## [1] FALSE
 ```
 
 Notice, two operators are provided to calculation `and`, `&` and `&&`, and two operators for `or`, `|` and `||`. 
 
-
-```r
+```{r, eval=TRUE}
 x <- c(TRUE, FALSE, TRUE)
 y <- c(FALSE, TRUE, TRUE)
 x & y
-```
-
-```
-## [1] FALSE FALSE  TRUE
-```
-
-```r
 x && y
-```
-
-```
-## [1] FALSE
-```
-
-```r
 x | y
-```
-
-```
-## [1] TRUE TRUE TRUE
-```
-
-```r
 x || y
-```
-
-```
-## [1] TRUE
 ```
 
 #### Other Operators
@@ -333,17 +153,12 @@ if( condition ){
 
 In this code, R will evaluate the condition and test if the conditional statement satisfied or not. The statement in bracket will be executed only if condition equals TRUE. 
 
-
-```r
+```{r, eval=TRUE}
 x <- 2
 if( x == 1 ){
   z <- 1
 }
 z
-```
-
-```
-## [1] 2
 ```
 
 We may add `else` to test further conditions.
@@ -360,8 +175,7 @@ if( condition.1 ){
 
 For example,
 
-
-```r
+```{r, eval=TRUE}
 signal <- 1
 
 if( signal == 1 ){
@@ -377,10 +191,6 @@ if( signal == 1 ){
 action
 ```
 
-```
-## [1] "Open Long"
-```
-
 For convenience, if-else sentence can be written in a single line.
 
 ```r
@@ -389,83 +199,38 @@ if( condition ) statement.1 else statement.2
 
 Function `ifelse()` is very useful when the statement line is short:
 
-
-```r
+```{r, eval=TRUE}
 x <- 3
 y <- ifelse(x == 2, x^2, x*3)
 y
 ```
 
-```
-## [1] 9
-```
-
 Besides the logical operator we have mentioned, function `any()` and `all()` are also often used when there are a lot of conditions to test.
 
-
-```r
+```{r, eval=TRUE}
 x <- c(1, 3, 5, 2)
 all( x > 2 )
-```
-
-```
-## [1] FALSE
-```
-
-```r
 any( x == 3)
-```
-
-```
-## [1] TRUE
 ```
 
 `switch()` is also used to deals with conditions, but in a different way.
 
-
-```r
+```{r, eval=TRUE}
 switch(1,"x","y") # the n-th argument will be returned.
-```
-
-```
-## [1] "x"
-```
-
-```r
 switch(2,"x","y")
-```
-
-```
-## [1] "y"
 ```
 
 If the number is larger than the number of followed arguments, a `NULL` will be returned.
 
-
-```r
+```{r, eval=TRUE}
 switch(3,"x","y")
 ```
 
 `switch()` performs differently when the input is a character.
 
-
-```r
+```{r, eval=TRUE}
 switch("a",a=1,b=2)
-```
-
-```
-## [1] 1
-```
-
-```r
 switch("b",a=1,b=2)
-```
-
-```
-## [1] 2
-```
-
-```r
 switch("c",a=1,b=2)
 ```
 
@@ -474,18 +239,13 @@ switch("c",a=1,b=2)
 Computers does not know how to prove a new mathematical theorem, but knows how to make simple calculations thousands times withins seconds. 
 By looping, we divide a complicated task into repeated calculations. For example, using `for-looping`:
 
-
-```r
+```{r, eval=TRUE}
 y <- 0
 for( i in 1:100 ){
   y <- y+i
 }
 
 y
-```
-
-```
-## [1] 5050
 ```
 
 From this example you may guess how `for-loop` works in R. General syntax for `for-loop` is
@@ -500,37 +260,21 @@ Notice 1, iterator is changing during the looping, and will still exist after lo
 
 Notice 2, we usually use vectors for looping, but `list`, `data.frame` can also be used for looping.
 
-
-```r
+```{r, eval=TRUE}
 df <- data.frame(a=rnorm(100, mean=1), b=rnorm(100, mean=0), c=rnorm(100, mean=3) )
 for( var in df ){
   message( mean(var) )
 }
-```
 
-```
-## 0.9600560648219
-## -0.00938217959033242
-## 3.05916288982538
-```
-
-```r
 lists <- list(a=rnorm(100, mean=1), b=rnorm(50, mean=0), c=rnorm(800, mean=3))
 for( x in lists ){
   message( mean(x) )
 }
 ```
 
-```
-## 0.784561781408941
-## -0.0814670461694088
-## 2.99539552574136
-```
-
 `next` and `break` gives us further controls over the program. `next` skips following lines in this time, and `break` stops the whole iteration.
 
-
-```r
+```{r, eval=TRUE}
 s <- 0
 for( i in 1:10 ){
   if( i == 3 ) next
@@ -539,16 +283,11 @@ for( i in 1:10 ){
 }
 
 s
-```
-
-```
-## [1] 12
 ```
 
 Notice the positions of `next` and `break` lines will change the result.
 
-
-```r
+```{r, eval=TRUE}
 s <- 0
 for( i in 1:10 ){
   if( i == 6 ) break
@@ -557,10 +296,6 @@ for( i in 1:10 ){
 }
 
 s
-```
-
-```
-## [1] 15
 ```
 
 `repeat` and `while` are also used for looping. 
@@ -582,8 +317,7 @@ while( condition ){
 
 For the same reason, `while-loop` is also seldom used, but they are useful especially when we do not know when to stop the loop.
 
-
-```r
+```{r, eval=TRUE}
 s <- 0
 i <- 1  # remember to creat iterator by yourself.
 while( s < 1000 ){
@@ -594,14 +328,9 @@ while( s < 1000 ){
 s
 ```
 
-```
-## [1] 1035
-```
-
 However, we are still able to use `for-loop` to do the same thing.
 
-
-```r
+```{r, eval=TRUE}
 s <- 0
 for( i in 1:1e8 ){
   if( s+i >= 100 ) break
@@ -609,10 +338,6 @@ for( i in 1:1e8 ){
 }
 
 s
-```
-
-```
-## [1] 91
 ```
 
 ## Function Writing
@@ -625,13 +350,8 @@ In mathematics, a function is a kind of rule. When we put a number `x` into the 
 
 In any kind of programming language, function works in the same way. Consider function `factorial()`:
 
-
-```r
+```{r, eval=TRUE}
 factorial(5)
-```
-
-```
-## [1] 120
 ```
 
 This calculates $n\times(n-1)\times(n-2)\dots\times1$. Here the input number is `5`, the output number is `120`. And how the input number `5` is processed is given by the equation.
@@ -661,8 +381,7 @@ function.name <- function( argument.1, argument.2 ){
 
 Here we just give a simple example:
 
-
-```r
+```{r, eval=TRUE}
 myfun <- function(x, a, b){
   y <- a + b*x
   return(y)
@@ -671,24 +390,14 @@ myfun <- function(x, a, b){
 
 Notice, a function is also a kind of object in R:
 
-
-```r
+```{r, eval=TRUE}
 class(myfun)
-```
-
-```
-## [1] "function"
 ```
 
 When the function is created, we can use it just as any existed functions in R.
 
-
-```r
+```{r, eval=TRUE}
 myfun(x=3, intercept=1, slope=2)
-```
-
-```
-## Error: 参数没有用(intercept = 1, slope = 2)
 ```
 
 ### Arguments
@@ -697,37 +406,13 @@ myfun(x=3, intercept=1, slope=2)
 
 All of the following are allowed in R:
 
-
-```r
+```{r, eval=TRUE}
 myfun(x=3, a=1, b=2)
-```
-
-```
-## [1] 7
-```
-
-```r
 myfun(a=1, b=2, x=3)
-```
 
-```
-## [1] 7
-```
-
-```r
 myfun(3, 1, 2)
-```
 
-```
-## [1] 7
-```
-
-```r
 myfun(x=3, 1, 2)
-```
-
-```
-## [1] 7
 ```
 
 The first two examples are called "exact matching", since they give the exact names of all arguments.
@@ -740,8 +425,7 @@ Also, we can use "partial matching" sometimes, though not recommended. (See [R L
 
 We can set default values to the function:
 
-
-```r
+```{r, eval=TRUE}
 myfun <- function(x, a=1, b=2){
   y <- a + b*x
   return(y)
@@ -750,29 +434,11 @@ myfun <- function(x, a=1, b=2){
 
 We have different choices to call the function `myfun()`:
 
-
-```r
+```{r, eval=TRUE}
 myfun(1)
-```
 
-```
-## [1] 3
-```
-
-```r
 myfun(x=1, a=2, b=3)
-```
-
-```
-## [1] 5
-```
-
-```r
 myfun(1, a=3)
-```
-
-```
-## [1] 5
 ```
 
 ( This actually used a mechanism inside R called "lazy evaluation". To know more, read: [Lazy Evaluation](http://renkun.me/learnR/inside-r/lazy-evaluation.html) )
@@ -783,39 +449,28 @@ myfun(1, a=3)
 
 In the examples above, we used `return()` to tell R which object to be returned when we call the function. However, `return()` is not a must in a function. R will return the last shown object.
 
-
-```r
+```{r, eval=TRUE}
 myfun <- function(x, a, b){
   y <- a + b*x
 }
 ```
 
-
-```r
+```{r, eval=TRUE}
 myfun(3, 1, 2)
 
 z <- myfun(3, 1, 2)
 z
 ```
 
-```
-## [1] 7
-```
-
 Notice, at this time the result will not be shown, but it can still be assigned to another object.
 
 We can also simplify the function in this way:
 
-
-```r
+```{r, eval=TRUE}
 myfun <- function(x, a, b) y <- a + b*x
 
 z <- myfun(3, 1, 2)
 z
-```
-
-```
-## [1] 7
 ```
 
 However, we usually recommend to explicitly write `return()` to make the codes more readable.
@@ -826,8 +481,7 @@ In some situations, we do not care about what its return is. We use these functi
 
 For example, we want a function to plot `n` random numbers:
 
-
-```r
+```{r, eval=TRUE}
 plot.rnorm <- function(n){
   rand <- rnorm(n)
   plot(rand)
@@ -836,28 +490,15 @@ plot.rnorm <- function(n){
 
 When we call this function, it will plot directly.
 
-
-```r
+```{r}
 plot.rnorm(100)
 ```
 
-![plot of chunk unnamed-chunk-34](figure/unnamed-chunk-34.png) 
-
 Still, we want to know what if we assign it to an object.
 
-
-```r
+```{r, eval=TRUE}
 test <- plot.rnorm(100)
-```
-
-![plot of chunk unnamed-chunk-35](figure/unnamed-chunk-35.png) 
-
-```r
 test
-```
-
-```
-## NULL
 ```
 
 Think about why. The reason is `plot(rand)` is the last line in the function, and `plot()` function returns the `NULL`! 
@@ -870,21 +511,16 @@ There is nothing special to tell about statements, though these statements are t
 
 ### Apply Family
 
-Here we get another 
-
-
 ### Further Topics
 
-These futher topics are about the underlying mechanisms of R. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.
+Here we just list some further topics of R programming. These topics are about the underlying mechanisms. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.
 
+* Recycling Rules (See [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf), Page 15, 3.3.1)
 * Copy on Write
 * Lazy Evaluation ([learnR](http://renkun.me/learnR/inside-r/lazy-evaluation.html), 8.1)
-* 
 * Scoping (See [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf), Page 20, 3.5)
 * Debugging (See [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf), Page 40, 9)
 * dot-dot-dot
-* Profiling
-* Memory Management
 
 
 ## Examples: 
