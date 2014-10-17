@@ -292,7 +292,7 @@ Here are some material related to using package `RMySQL`.
 7. Missing values could emerge from almost everywhere in real-world  data analysis. Try the `na` family, such as `na.omit` in `stats` and `na.locf` in `zoo`, and determine which are the most useful ones in your working scenarios.  
 **Notes:**  Before we analyze data, we usually need to get and clear data at first. In reality, the samples we collect often have missing value. Here is some skills to deal with the missing value.
 
-    `read.table("file",na.rm=TRUE) `#omit the missing value  
+    `mean(object,na.rm=TRUE) `#omit the missing value  
     `good<-complete.cases(object1,object2)`#select the sample which are complete   
     `object1[good]`                        #both in object1 and object2.  
     `object2[good]`        
