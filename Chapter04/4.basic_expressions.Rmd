@@ -1,7 +1,9 @@
 # Chapter 4. Basic Expressions and Function Writing
 Sunday, October 12, 2014  
 
-**NOTICE**: The main references of this material are: i) [learnR](http://renkun.me/learnR/): Chapter 3. Basic Expressions; ii) [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf): Chapter 3. Evaluation of Expressions, Chapter 4. Functions. 
+**NOTICE**: The main references of this material are: 
+* i) [learnR](http://renkun.me/learnR/): Chapter 3. Basic Expressions; 
+* ii) [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf): Chapter 3. Evaluation of Expressions, Chapter 4. Functions. 
 
 ## Introduction
 
@@ -10,21 +12,24 @@ Expressions and functions play essential roles in R programming, especially when
 ### Contents
 
 * Basic Expressions
-  * 1.1 Assignment
-  * 1.2 Operators
-  * 1.3 Conditions
-  * 1.4 Loop
+  * Assignment
+  * Operators
+  * Conditions
+  * Loop
   
 * Function Writing
-  * 2.1 Elements of a Function
-  * 2.2 Syntax
-  * 2.3 Arguments
-  * 2.4 Return
-  * 2.5 Statements
-  * 2.6 Apply Family
-  * 2.7 Further Topics
+  * Elements of a Function
+  * Syntax
+  * Arguments
+  * Return
+  * Statements
+  * Apply Family
+  * Further Topics
 
 * Applications
+  * Fibonacci Sequence
+  * Discrete Markov Chain
+  * Basic Option Pricing Models
 
 ## Basic Expressions
 
@@ -109,7 +114,7 @@ z != y
 
 These operators are used to compare the values of two variables. R also provides a useful operator `%in%` to find if a certain element exist in another object.
 
-```r
+```{r, eval=TRUE}
 y <- c(1, 3, 5, 6)
 3 %in% y
 4 %in% y
@@ -509,8 +514,6 @@ Though we usually do not do it this way, we must be clear about what happens in 
 
 There is nothing special to tell about statements, though these statements are the main body of a function. The reason is, you are writing in the same as you are writing an R script.
 
-### Apply Family
-
 ### Further Topics
 
 Here we just list some further topics of R programming. These topics are about the underlying mechanisms. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.
@@ -522,15 +525,207 @@ Here we just list some further topics of R programming. These topics are about t
 * Debugging (See [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf), Page 40, 9)
 * dot-dot-dot
 
-
-## Examples: 
+## Application 
 
 Equipped with the knowledge of operators, conditions and looping, we now come into a new topic: build your own program.
 
 This is a very exiting part because it shows how you can tell your computer to work as you like and finish your tasks. Even the most complicated algorithm is generated from these structures, and you can show how creative you are using these basic tools.
 
+### Fibonacci Sequence
 
+The generation of Fibonacci sequence is often used as study examples and also used to test the efficiency of a programming language.
 
+```{r, eval=TRUE}
+n <- 50
+fib <- c(1, 1)
 
+for( i in 3:50 ){
+  fib[i] <- fib[i-1] + fib[i-2]
+}
 
+fib
+```
+
+### Discrete Markov Chain Simulation
+
+Consider a discrete state transition stochastic procedure:
+
+```{r, eval=TRUE}
+trans.mat <- matrix(0, 3, 3)
+trans.mat[1, ] <- c(0.1, 0.3, 0.6)
+trans.mat[2, ] <- c(0.3, 0.4, 0.3)
+trans.mat[3, ] <- c(0.4, 0.6, 0)
+trans.mat
+```
+
+How to simulate this procedure?
+
+```{r, eval=TRUE}
+cum.trans.mat <- t( apply(trans.mat, MARGIN=1, cumsum) )
+
+state <- 2
+sim <- c(state)
+
+for( i in 2:1000 ){
+  
+  if( state == 1 ){
+    rand <- runif(1)
+    state <- ifelse(rand <= cum.trans.mat[1, 1], 1, 
+                    ifelse(rand <= cum.trans.mat[1, 2], 2, 3) )
+    sim[i] <- state
+  } else if ( state == 2 ){
+    rand <- runif(1)
+    state <- ifelse(rand <= cum.trans.mat[2, 1], 1, 
+                    ifelse(rand <= cum.trans.mat[2, 2], 2, 3) )
+    sim[i] <- state
+  } else if ( state == 3 ){
+    rand <- runif(1)
+    state <- ifelse(rand <= cum.trans.mat[3, 1], 1, 
+                    ifelse(rand <= cum.trans.mat[3, 2], 2, 3) )
+    sim[i] <- state
+  }
+  
+}
+
+```
+
+We can also simplify the codes. Think about why it works, and why `break` is needed in this code.
+
+```{r, eval=TRUE}
+for( i in 2:1000 ){  
+  for( j in 1:3 ){
+    if( state == j ){
+      rand <- runif(1)
+      state <- ifelse(rand <= cum.trans.mat[j, 1], 1, 
+                      ifelse(rand <= cum.trans.mat[j, 2], 2, 3) )
+      sim[i] <- state
+      break
+    }
+  }
+}
+```
+
+Test if the simulation is consistency with the given matrix.
+
+```{r, eval=TRUE}
+test <- table( sim[1:999], sim[2:1000] )
+test
+test/rowSums(test)
+trans.mat
+```
+
+### Basic Option Pricing Models
+
+#### Black-Scholes Option Pricing Model
+
+In BS model, the price of a option is given by:
+
+$C=S\times N(-d_1) - K\times e^{T-t_0}\times N(d_2)$
+$P=K\times e^{T-t_0}\times N(-d_2)-S\times N(-d_1)$
+
+Where $T$ is the a future time point, $t_0$ is right now. $S$  is the price of underlying asset, and $K$ is executive price of the option. 
+
+```{r, eval=TRUE}
+S <- 50
+K <- 52
+r <- 0.01
+sigma <- 0.5
+Time <- 0.25
+t0 <- 0
+
+d1 <- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+d2 <- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+
+C <- S*pnorm(d1) - K*exp(-r*(Time-t0))*pnorm(d2)
+P <- K*exp(-r*(Time-t0))*pnorm(-d2) - S*pnorm(-d1)  
+
+c(C, P)
+```
+
+How to make the codes reusable? Notice both $C$ and $P$ are functions of parameters $S$, $T$, $t_0$, $\sigma$ and $r$. 
+
+$C=F_c(S, T, t_0, \sigma, r)$
+$P=F_p(S, T, t_0, \sigma, r)$
+
+Using them as arguments, we can write two functions to calculate the theoretical price.
+
+```{r, eval=TRUE}
+bs.eurocall <- function(S, K, r, sigma, Time, t0){
+  d1 <- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  d2 <- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  
+  eurocall <- S*pnorm(d1) - K*exp(-r*(Time-t0))*pnorm(d2)
+  
+  return(eurocall)  
+}
+
+bs.eurocall(50, 52, 0.01, 0.5, 0.25, 0)
+```
+
+```{r, eval=TRUE}
+bs.europut <- function(S, K, r, sigma, Time, t0){
+  d1 <- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  d2 <- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  
+  europut <- K*exp(-r*(Time-t0))*pnorm(-d2) - S*pnorm(-d1)  
+  
+  return(europut)  
+}
+
+bs.europut(50, 52, 0.01, 0.5, 0.25, 0)
+```
+
+Notice these these two functions are quite similar with each other. We can add an argument called "type" to control what kind of option is going to be calculated.
+
+```{r, eval=TRUE}
+bs.optprc <- function(type, S, K, r, sigma, Time, t0){
+  d1 <- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  d2 <- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  
+  if(type == "euro.call") optprc <- S*pnorm(d1) - K*exp(-r*(Time-t0))*pnorm(d2)
+  if(type == "euro.put")  optprc <- K*exp(-r*(Time-t0))*pnorm(-d2) - S*pnorm(-d1)  
+  
+  return(optprc)  
+}
+
+bs.optprc(type="euro.call", 50, 52, 0.01, 0.5, 0.25, 0)
+```
+
+#### Binomial Tree Model
+
+Binomial tree model is another famous option pricing model. This model assumes the price of the uderlying asset will go up or go down in a certain rate during every single period of time. We can calculate the change rate of price, and the probability to go up. 
+
+The final price of the option is introduced firstly, and then we can trace back to the original price and get the theoretical price right now.
+
+```{r, eval=TRUE}
+binom.optprc <- function(type, S, K, r, sigma, Time, N){
+
+  dt <- Time/N
+  
+  u <- exp(sigma*sqrt(dt))
+  d <- 1/u
+  p <- (exp(r*dt)-d)/(u-d)
+  
+  tree <- matrix(0, nrow=N+1, ncol=N+1)
+  
+  for( y in 0:N ){
+    if( type=='call' )  tree[y+1, N+1] <- max(0, S*(u^y)*(d^(N-y))-K )     
+    if( type=='put'  )  tree[y+1, N+1] <- max(0, K - S*(u^y)*(d^(N-y)) )   
+  }
+    
+  for( x in seq(from=N, to=1, by=-1) ){
+    for( y in seq(from=1, to=x, by=1) ){
+      if( type=='call' ) tree[y, x] <- exp(-r*dt)*(p*tree[y+1, x+1] + (1-p)*tree[y, x+1]) 
+      if( type=='put'  ) tree[y, x] <- exp(-r*dt)*(p*tree[y+1, x+1] + (1-p)*tree[y, x+1])   
+    }
+  }
+  
+  optprc <- tree[1, 1]
+  
+  return(optprc)
+}
+
+binom.optprc(type='call', S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30)
+binom.optprc(type='put', S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30)
+```
 

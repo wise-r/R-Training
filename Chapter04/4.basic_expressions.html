@@ -187,7 +187,12 @@ hljs.initHighlightingOnLoad();
 
 <p>Sunday, October 12, 2014  </p>
 
-<p><strong>NOTICE</strong>: The main references of this material are: i) <a href="http://renkun.me/learnR/">learnR</a>: Chapter 3. Basic Expressions; ii) <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>: Chapter 3. Evaluation of Expressions, Chapter 4. Functions. </p>
+<p><strong>NOTICE</strong>: The main references of this material are: </p>
+
+<ul>
+<li>i) <a href="http://renkun.me/learnR/">learnR</a>: Chapter 3. Basic Expressions; </li>
+<li>ii) <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>: Chapter 3. Evaluation of Expressions, Chapter 4. Functions. </li>
+</ul>
 
 <h2>Introduction</h2>
 
@@ -199,23 +204,29 @@ hljs.initHighlightingOnLoad();
 <li><p>Basic Expressions</p>
 
 <ul>
-<li>1.1 Assignment</li>
-<li>1.2 Operators</li>
-<li>1.3 Conditions</li>
-<li>1.4 Loop</li>
+<li>Assignment</li>
+<li>Operators</li>
+<li>Conditions</li>
+<li>Loop</li>
 </ul></li>
 <li><p>Function Writing</p>
 
 <ul>
-<li>2.1 Elements of a Function</li>
-<li>2.2 Syntax</li>
-<li>2.3 Arguments</li>
-<li>2.4 Return</li>
-<li>2.5 Statements</li>
-<li>2.6 Apply Family</li>
-<li>2.7 Further Topics</li>
+<li>Elements of a Function</li>
+<li>Syntax</li>
+<li>Arguments</li>
+<li>Return</li>
+<li>Statements</li>
+<li>Apply Family</li>
+<li>Further Topics</li>
 </ul></li>
-<li><p>Applications</p></li>
+<li><p>Applications</p>
+
+<ul>
+<li>Fibonacci Sequence</li>
+<li>Discrete Markov Chain</li>
+<li>Basic Option Pricing Models</li>
+</ul></li>
 </ul>
 
 <h2>Basic Expressions</h2>
@@ -254,7 +265,7 @@ c(x, y, z)
 c(x, y, z)
 </code></pre>
 
-<pre><code>## [1] -0.2642 -0.2642 -0.2642
+<pre><code>## [1] -0.2638 -0.2638 -0.2638
 </code></pre>
 
 <h3>Operators</h3>
@@ -601,9 +612,9 @@ for( var in df ){
 }
 </code></pre>
 
-<pre><code>## 0.9600560648219
-## -0.00938217959033242
-## 3.05916288982538
+<pre><code>## 1.05629170883584
+## -0.193954797681854
+## 2.86135258665476
 </code></pre>
 
 <pre><code class="r">lists &lt;- list(a=rnorm(100, mean=1), b=rnorm(50, mean=0), c=rnorm(800, mean=3))
@@ -612,9 +623,9 @@ for( x in lists ){
 }
 </code></pre>
 
-<pre><code>## 0.784561781408941
-## -0.0814670461694088
-## 2.99539552574136
+<pre><code>## 0.94618365188732
+## 0.0882155143056008
+## 2.95745802912501
 </code></pre>
 
 <p><code>next</code> and <code>break</code> gives us further controls over the program. <code>next</code> skips following lines in this time, and <code>break</code> stops the whole iteration.</p>
@@ -882,14 +893,14 @@ z
 <pre><code class="r">plot.rnorm(100)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-34"/> </p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-34"/> </p>
 
 <p>Still, we want to know what if we assign it to an object.</p>
 
 <pre><code class="r">test &lt;- plot.rnorm(100)
 </code></pre>
 
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAAclBMVEX9/v0AAAAAADkAAGUAOTkAOWUAOY8AZrU5AAA5ADk5AGU5OWU5OY85j9plAABlADllAGVlOQBlOY9lZmVltf2POQCPOTmPZgCPtY+P29qP2/21ZgC1/rW1/v3ajzna/tra/v39tWX924/9/rX9/tr9/v251xIjAAAAJnRSTlP/////////////////////////////////////////////////AKd6gbwAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAzHSURBVHic7Z2Ldtu4FUWHyTTxuCMn08ppa9dq9Pr/Xyyplx09KIK4IHBx9l7JeGZ5dAhyA7ggRUq/bUGS33I3APKAeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFFixDdQMgnFR7wWUoN4URAvCuJFQbwoiBcF8aIgXhTEi4J4URDviruXWocn9f8a8UXRbM0OK+I9gXhREK8KNR4iQbwoiBcF8aIgXpRo8auH5tPLdrv+/hYYDVmJFb95nrd/Z4j3Rqz4vfDXrx/ED7yBF7JiMeJbFr8/MuJdEV3j10+z7sfiM+JdwapeFMSLgnhREC8K4kVBvCiIFwXxoiBeFMSLgnhREC8K4kVBvAjn90cgXoOLZ3AQrwHiRUF84SS7VZEaXzSGj8MO2FIPiJ+WisVz23Uf9Yqfbs98cmNc2A8XxHsgwVFDvAcqEE+NH0MN4mEM/ms8FALiRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXJbd43qzLRGbxp/cb6QATU4h47s+YGsSLUkiNR/zU5BZ/+p+p8dNSiniYGMSLUoJ4pvkMFCCehV0OEC8K4kUpQDw1PgcliIcMIF4UxIuCeFEQLwrib1L3yQbib1H55QXE3wLxiaJLB/GJootnQI13vAxA/CCuG/Y8KWQR726g3DCcR7zN0cshfvLjFX2ohoqfokcbHb1Y8eunZs/nt1Pkkb5tTik+fnu3Es52cpIdK0T8dvM8C422afrw0WWwvWEbkxK/XX97CY22mBED9n+yGWaaDfmt8SaEHOTJFpPjNzT5erdQ8fePg+dTqUum35syxQ85Du7OCftA/PtLK9J6H8S/v7Q48UmnGGr84bXlzeNFdsbxFCq+QBBvFO0NxBtFu6PA8hMB4kVBvCiIFwXxojgUX9ciKxf+xFd2WjUKg76PeIdYHALEO6Ry8bfms/Mb3fRKvivxwX4G7p3kBPDxYI7s+FOJD/eD+EGM3f86xAtO90fqEz90DjtYVzVfuvikazBl8aXX+KAXJloHwgcKFJ+uKjhhkr2pQ3xVTLP/iC8OWfGVTdzB6IpXp74aLz6Ui2JK8Y6Kd+4uanAx/t4W+n8tKj53Sz9uP1FbEH+N3C2tTHz2CXQwiFdd1R+7aK6uWleN90fukZ8QxPeB+ATRFqSeiRGfINqA9F7Oe5ab5ekvXGs14jNscOLuc7XViJ9+g1M3uz7xqc50bqYifuj2PNLnxaSnTT9R1Vbj0zD9kjEHiL/A4TnciJ6E+EtKGJBBjOmqiL9L+f0A8SkoZua3PdlA/D1KEW98soH4e3gQPzKuB8QXU+MRr4ptB0R8IrLMEwEbRXwa7k3MSfpFSDVAfBruOEizYkR8UgYNVsRXx8Cj2989Ep0jUuMTsnMWXaGznyMiPpSms2Z7Sp3lBKD/14i/xPpTtvJcGkT8CBAfE+2ZbtCbTdCId4WhLp81fvXQfbRk8/ktNNo5pbxpN5ZY8Zvn+e7n8svPwGjnqItff3/75ed2N3PtiWxa4TjfQScj3vlRLpDoGr9+mqDGe59XR5Ouw/tY1auKT7jfiJ+Qkj6W24d4DzX+fhMDNab9BgYn4stngKMwjYd3AbVrvAPSiI9p0f34HhA/lCGegsYv4p1gPivbBN782sb+l5Ug3sHCrlxuzhvli6/kVC4TiD/Fac0fiE+S5gBq/CFsKyb+Fg7E2yH+baS/MED84f23q+/ARURPT+JrYb4YNuJfZ+0/Fl9No1MR94khMv1ikPj97TUfbrKxiB5F1Dsh5ldVPTNI/OZ5N+Ivb7KJiR5DpDrzN9BsmXS2GTbVb57bRgXO9AWKN9lAMqbdtq9VffoqnbHGI74vs+K1V4nilw5O5wruEwObVl6NXz/N7aONKXg9HrfeTETA6ZxxtDE+xedrdcAFHONoY+4dwjJXbYWLv/3QRES0NWdmz/9zW+QJeuHik0Sn5fyIlloJyq7xSaLT4kV8NoaJXziY6i833jf1182AnR1W47+9LL/avjuX3IOU6DMGXeDs//XpdG7/J3jzfb/TFZMaM/GbHy/tn9Uj4n1gJn7bOl82TeDJPOKzYVXjR26995fCJbgISrtkS4eYiKE13j765mswPwWFXbK1F88Ucp3CrtyZi2cKuUFh4s0H6C3x+a6RFzIDlSbemhvip58IDsI/bjhrH6hd/I2jO7n45uxvjjZcNKgH/+Kvg3hR8ZNPsyfL7xtGvARXeho1fmBeIevhOvAjnjNyU3KKDxvCiO8ncELMKD7QJOJ7CT08fsRT43upWDz04Ug8Q9gUPzUecoL4hJQ8pSHegkLeCQoB8QYU895vAIg3APEh0RVR3G0+A0C8BSUbvgHi33GobzyIP1F0STYH8ScQ/wHE1wri36HGv1OoeClFaYgV3/P1FRZukl4Lle4+0SN+/1n2I6KHkPSSmFZNPyd+ql9/O3uGujkyvlWnqC3iE1F2jU96LRTxPeRe3CUtw9T42wwUv7hW54WPqgMQXxtDvxWh/9eTipeeeq0YunIpqMZrL7asQLwoiFdl0ho/JvrKC6jx01GS+JzIdTrE79ArM4jfgfgzEF8rdYoPr9jU+F/xKV5v/IaDeFEQL0qV4vUqdjh1ioe7IF4UxIuCeFEQLwriE5PsBCMyGPFpSXZJITYY8WlBvChpxUdM94hPTMoaH9OrEO8YxIuC+JKY8g0ianw5eHlLGPHGIN7F7tuD+AJ2P8v9GE5uAqlZvJfBlwXEi4J4UWoW76XcJqHb9779r1q8MM32zoyH+DpBvCiIv4ZC7afGX8Jqf4t4WRAviqJ42xrvdMEgKd4Sr9MH4iNBfGh0JSA+NLoWqPGB0ZAVxIuCeFEQL4q6eKdLs3jExXs9GYsH8S7aaU9d4oMnbsTfwJf4ERqp8depXrwsiBclWvzqofn0st2uv78FRqdAduIOJ1b85nne/p0VIh4GEyt+L/z1K+KdYTHiWxa/PyLeFdE1fv20+ybpxeeT+OZIZNMgJVWt6mE4iBfFRvxiFh4NWUG8KIgXhRovCuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFQbzoN9kgXvS7qxCP+GsgvlYQT42/hoR4SRAvCuJFQbwoiBcF8aIgXhTEi4J4URCfAgfXAhGfAA9X/6PFrx6a2WvTvH99/NDoilEQv3meb19b66s/fwZGV4yC+PX3t+1ytv8ZFl0zAjW+G/EdjHhnRNf49VNnfvGhxjdHIpsGKWFVLwriRbERv5iFR0NWEC8K4kWhxouCeFEQLwriRUkpHkomnfiPfcAmJkUaTbsK4jOmIT5lGk27CuIzpiE+ZRpNuwriM6YhPmUaTbuKkXjwBuJFQbwoiBcF8aIgXhTEi4J4URAvCuJFsRC/fmq+XDxROY7VQ9PM7RJ3T3wahW2em08vVmntfnYPI5qErR7fk4YHGojvju7ia3xOy/rby3b1x4tZ4qLtRVZhr/Pt8stPm7RuPxdGYcuuCx2SAgINxHdPzu96XTzLrtGvc6vE1d//mls17/D5ADZp3TPnbZJF2Ounf7cJh6SAQAPxu71ou7ARbZRR4ubHf9oRYBS2+vNf3VRvk3YY8TZhnelDUkCggfh2AjQUv3meWSUuZt3UZxS2etj1IaO0fS22CevEH5ICAksb8eunmVVim7KxHPGhY6ov7I+X7fLzm/MRb1jjd+PKKnGxu7t8ZlXj/7E7pjZph5FptGDIVeO7ydloVb/3bpfYjXirsNf5fg6xSDuMeKOwx7fjTgYElnUevx+k8yLP49sYs1Pv9hzM7qJAtvN48AjiRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXRVn8rzciH79SUwTEH0G8DK347om4w3PZf/trfriF+tXsOYGCURf/sH9Sr3W9bDvAXvn6+38vvzq7NtTFP54ePWqn+u6xs+5fF821r9mrC8Qff3TP5T81uydcuiecagfxH0f8YYZ//Wf1JR7x+8dL32v8svu8gv/9qH7II/7wtOlxVf/p5fhpCnWjLF4axIuCeFEQLwriRUG8KIgXBfGiIF4UxIuCeFEQLwriRUG8KIgXBfGiIF4UxIvyf9E9n3uQaVtvAAAAAElFTkSuQmCC" alt="plot of chunk unnamed-chunk-35"/> </p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-35"/> </p>
 
 <pre><code class="r">test
 </code></pre>
@@ -907,28 +918,273 @@ z
 
 <h3>Apply Family</h3>
 
-<p>Here we get another </p>
+<p>??????</p>
 
 <h3>Further Topics</h3>
 
-<p>These futher topics are about the underlying mechanisms of R. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.</p>
+<p>Here we just list some further topics of R programming. These topics are about the underlying mechanisms. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.</p>
 
 <ul>
+<li>Recycling Rules (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 15, 3.3.1)</li>
 <li>Copy on Write</li>
 <li>Lazy Evaluation (<a href="http://renkun.me/learnR/inside-r/lazy-evaluation.html">learnR</a>, 8.1)</li>
-<li></li>
 <li>Scoping (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 20, 3.5)</li>
 <li>Debugging (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 40, 9)</li>
 <li>dot-dot-dot</li>
-<li>Profiling</li>
-<li>Memory Management</li>
 </ul>
 
-<h2>Examples:</h2>
+<h2>Application</h2>
 
 <p>Equipped with the knowledge of operators, conditions and looping, we now come into a new topic: build your own program.</p>
 
 <p>This is a very exiting part because it shows how you can tell your computer to work as you like and finish your tasks. Even the most complicated algorithm is generated from these structures, and you can show how creative you are using these basic tools.</p>
+
+<h3>Fibonacci Sequence</h3>
+
+<p>The generation of Fibonacci sequence is often used as study examples and also used to test the efficiency of a programming language.</p>
+
+<pre><code class="r">n &lt;- 50
+fib &lt;- c(1, 1)
+
+for( i in 3:50 ){
+  fib[i] &lt;- fib[i-1] + fib[i-2]
+}
+
+fib
+</code></pre>
+
+<pre><code>##  [1] 1.000e+00 1.000e+00 2.000e+00 3.000e+00 5.000e+00 8.000e+00 1.300e+01
+##  [8] 2.100e+01 3.400e+01 5.500e+01 8.900e+01 1.440e+02 2.330e+02 3.770e+02
+## [15] 6.100e+02 9.870e+02 1.597e+03 2.584e+03 4.181e+03 6.765e+03 1.095e+04
+## [22] 1.771e+04 2.866e+04 4.637e+04 7.502e+04 1.214e+05 1.964e+05 3.178e+05
+## [29] 5.142e+05 8.320e+05 1.346e+06 2.178e+06 3.525e+06 5.703e+06 9.227e+06
+## [36] 1.493e+07 2.416e+07 3.909e+07 6.325e+07 1.023e+08 1.656e+08 2.679e+08
+## [43] 4.335e+08 7.014e+08 1.135e+09 1.836e+09 2.971e+09 4.808e+09 7.779e+09
+## [50] 1.259e+10
+</code></pre>
+
+<h3>Discrete Markov Chain Simulation</h3>
+
+<p>Consider a discrete state transition stochastic procedure:</p>
+
+<pre><code class="r">trans.mat &lt;- matrix(0, 3, 3)
+trans.mat[1, ] &lt;- c(0.1, 0.3, 0.6)
+trans.mat[2, ] &lt;- c(0.3, 0.4, 0.3)
+trans.mat[3, ] &lt;- c(0.4, 0.6, 0)
+trans.mat
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  0.1  0.3  0.6
+## [2,]  0.3  0.4  0.3
+## [3,]  0.4  0.6  0.0
+</code></pre>
+
+<p>How to simulate this procedure?</p>
+
+<pre><code class="r">cum.trans.mat &lt;- t( apply(trans.mat, MARGIN=1, cumsum) )
+
+state &lt;- 2
+sim &lt;- c(state)
+
+for( i in 2:1000 ){
+
+  if( state == 1 ){
+    rand &lt;- runif(1)
+    state &lt;- ifelse(rand &lt;= cum.trans.mat[1, 1], 1, 
+                    ifelse(rand &lt;= cum.trans.mat[1, 2], 2, 3) )
+    sim[i] &lt;- state
+  } else if ( state == 2 ){
+    rand &lt;- runif(1)
+    state &lt;- ifelse(rand &lt;= cum.trans.mat[2, 1], 1, 
+                    ifelse(rand &lt;= cum.trans.mat[2, 2], 2, 3) )
+    sim[i] &lt;- state
+  } else if ( state == 3 ){
+    rand &lt;- runif(1)
+    state &lt;- ifelse(rand &lt;= cum.trans.mat[3, 1], 1, 
+                    ifelse(rand &lt;= cum.trans.mat[3, 2], 2, 3) )
+    sim[i] &lt;- state
+  }
+
+}
+</code></pre>
+
+<p>We can also simplify the codes. Think about why it works, and why <code>break</code> is needed in this code.</p>
+
+<pre><code class="r">for( i in 2:1000 ){  
+  for( j in 1:3 ){
+    if( state == j ){
+      rand &lt;- runif(1)
+      state &lt;- ifelse(rand &lt;= cum.trans.mat[j, 1], 1, 
+                      ifelse(rand &lt;= cum.trans.mat[j, 2], 2, 3) )
+      sim[i] &lt;- state
+      break
+    }
+  }
+}
+</code></pre>
+
+<p>Test if the simulation is consistency with the given matrix.</p>
+
+<pre><code class="r">test &lt;- table( sim[1:999], sim[2:1000] )
+test
+</code></pre>
+
+<pre><code>##    
+##       1   2   3
+##   1  20  88 146
+##   2 119 183 149
+##   3 115 179   0
+</code></pre>
+
+<pre><code class="r">test/rowSums(test)
+</code></pre>
+
+<pre><code>##    
+##           1       2       3
+##   1 0.07874 0.34646 0.57480
+##   2 0.26386 0.40576 0.33038
+##   3 0.39116 0.60884 0.00000
+</code></pre>
+
+<pre><code class="r">trans.mat
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  0.1  0.3  0.6
+## [2,]  0.3  0.4  0.3
+## [3,]  0.4  0.6  0.0
+</code></pre>
+
+<h3>Basic Option Pricing Models</h3>
+
+<h4>Black-Scholes Option Pricing Model</h4>
+
+<p>In BS model, the price of a option is given by:</p>
+
+<p>\( C=S\times N(-d_1) - K\times e^{T-t_0}\times N(d_2) \)
+\( P=K\times e^{T-t_0}\times N(-d_2)-S\times N(-d_1) \)</p>
+
+<p>Where \( T \) is the a future time point, \( t_0 \) is right now. \( S \)  is the price of underlying asset, and \( K \) is executive price of the option. </p>
+
+<pre><code class="r">S &lt;- 50
+K &lt;- 52
+r &lt;- 0.01
+sigma &lt;- 0.5
+Time &lt;- 0.25
+t0 &lt;- 0
+
+d1 &lt;- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+d2 &lt;- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+
+C &lt;- S*pnorm(d1) - K*exp(-r*(Time-t0))*pnorm(d2)
+P &lt;- K*exp(-r*(Time-t0))*pnorm(-d2) - S*pnorm(-d1)  
+
+c(C, P)
+</code></pre>
+
+<pre><code>## [1] 4.186 6.056
+</code></pre>
+
+<p>How to make the codes reusable? Notice both \( C \) and \( P \) are functions of parameters \( S \), \( T \), \( t_0 \), \( \sigma \) and \( r \). </p>
+
+<p>\( C=F_c(S, T, t_0, \sigma, r) \)
+\( P=F_p(S, T, t_0, \sigma, r) \)</p>
+
+<p>Using them as arguments, we can write two functions to calculate the theoretical price.</p>
+
+<pre><code class="r">bs.eurocall &lt;- function(S, K, r, sigma, Time, t0){
+  d1 &lt;- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  d2 &lt;- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+
+  eurocall &lt;- S*pnorm(d1) - K*exp(-r*(Time-t0))*pnorm(d2)
+
+  return(eurocall)  
+}
+
+bs.eurocall(50, 52, 0.01, 0.5, 0.25, 0)
+</code></pre>
+
+<pre><code>## [1] 4.186
+</code></pre>
+
+<pre><code class="r">bs.europut &lt;- function(S, K, r, sigma, Time, t0){
+  d1 &lt;- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  d2 &lt;- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+
+  europut &lt;- K*exp(-r*(Time-t0))*pnorm(-d2) - S*pnorm(-d1)  
+
+  return(europut)  
+}
+
+bs.europut(50, 52, 0.01, 0.5, 0.25, 0)
+</code></pre>
+
+<pre><code>## [1] 6.056
+</code></pre>
+
+<p>Notice these these two functions are quite similar with each other. We can add an argument called &ldquo;type&rdquo; to control what kind of option is going to be calculated.</p>
+
+<pre><code class="r">bs.optprc &lt;- function(type, S, K, r, sigma, Time, t0){
+  d1 &lt;- ( log(S/K) + (r+sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+  d2 &lt;- ( log(S/K) + (r-sigma^2/2)*(Time-t0) ) / ( sigma*sqrt(Time-t0) )
+
+  if(type == &quot;euro.call&quot;) optprc &lt;- S*pnorm(d1) - K*exp(-r*(Time-t0))*pnorm(d2)
+  if(type == &quot;euro.put&quot;)  optprc &lt;- K*exp(-r*(Time-t0))*pnorm(-d2) - S*pnorm(-d1)  
+
+  return(optprc)  
+}
+
+bs.optprc(type=&quot;euro.call&quot;, 50, 52, 0.01, 0.5, 0.25, 0)
+</code></pre>
+
+<pre><code>## [1] 4.186
+</code></pre>
+
+<h4>Binomial Tree Model</h4>
+
+<p>Binomial tree model is another famous option pricing model. This model assumes the price of the uderlying asset will go up or go down in a certain rate during every single period of time. We can calculate the change rate of price, and the probability to go up. </p>
+
+<p>The final price of the option is introduced firstly, and then we can trace back to the original price and get the theoretical price right now.</p>
+
+<pre><code class="r">binom.optprc &lt;- function(type, S, K, r, sigma, Time, N){
+
+  dt &lt;- Time/N
+
+  u &lt;- exp(sigma*sqrt(dt))
+  d &lt;- 1/u
+  p &lt;- (exp(r*dt)-d)/(u-d)
+
+  tree &lt;- matrix(0, nrow=N+1, ncol=N+1)
+
+  for( y in 0:N ){
+    if( type==&#39;call&#39; )  tree[y+1, N+1] &lt;- max(0, S*(u^y)*(d^(N-y))-K )     
+    if( type==&#39;put&#39;  )  tree[y+1, N+1] &lt;- max(0, K - S*(u^y)*(d^(N-y)) )   
+  }
+
+  for( x in seq(from=N, to=1, by=-1) ){
+    for( y in seq(from=1, to=x, by=1) ){
+      if( type==&#39;call&#39; ) tree[y, x] &lt;- exp(-r*dt)*(p*tree[y+1, x+1] + (1-p)*tree[y, x+1]) 
+      if( type==&#39;put&#39;  ) tree[y, x] &lt;- exp(-r*dt)*(p*tree[y+1, x+1] + (1-p)*tree[y, x+1])   
+    }
+  }
+
+  optprc &lt;- tree[1, 1]
+
+  return(optprc)
+}
+
+binom.optprc(type=&#39;call&#39;, S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30)
+</code></pre>
+
+<pre><code>## [1] 4.225
+</code></pre>
+
+<pre><code class="r">binom.optprc(type=&#39;put&#39;, S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30)
+</code></pre>
+
+<pre><code>## [1] 6.095
+</code></pre>
 
 </body>
 
