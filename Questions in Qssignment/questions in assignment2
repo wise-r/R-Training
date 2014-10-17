@@ -1,0 +1,12 @@
+```{r}
+logi.size<-apply(matrix(1:100,1,100),2,function(i) object.size(rep(TRUE,i)))
+print(logi.size)
+```
+**Q1:**Why does the size of logical vector increase in this way?
+
+**Q2:**Experiment the copy on write behavior of data frames and see it is more like the behavior of a list or of a matrix.
+
+*Notes:* Because based on the test above(test copy on right for vector and list), when we modify an member in a list, the entire list will be copied,so there is no difference between them. But since data frame is a special case of list, it may much more like list in the behavior of copying on write.
+
+**Q3:** In data frame section, can you avoid growing a data frame by pre-allocating one of a size large enough?
+`as.data.frame(matrix(numeric(30),5,6))` What do you do if the size actually needed cannot be known in advance?
