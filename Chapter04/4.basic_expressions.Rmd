@@ -7,7 +7,7 @@ Sunday, October 12, 2014
 
 ## Introduction
 
-Expressions and functions play essential roles in R programming, especially when the analytic tasks are too complicated to use several existed functions to complete. In these situations, loops and functions are often used to control the execute procedure of the program. In this chapter we will explore some basic but useful skills in R programming, and we will also have some examples related to finance study to show how to organize your idea, and transform mathematical models to R programs.
+Expressions and functions play essential roles in R programming, especially when the analytic tasks are too complicated to use several existed functions to complete. In these situations, loops and functions are often used to control the execute procedure of the code. In this chapter we will explore some basic but useful skills in R programming, and we will also have some examples related to finance study to show how to organize your idea, and how transform mathematical models to R programs.
 
 ### Contents
 
@@ -23,21 +23,21 @@ Expressions and functions play essential roles in R programming, especially when
   * Arguments
   * Return
   * Statements
-  * Apply Family
   * Further Topics
 
 * Applications
   * Fibonacci Sequence
   * Discrete Markov Chain
   * Basic Option Pricing Models
+  * Split-Apply-Combine Strategy in Data Manipulation
 
 ## Basic Expressions
 
 ### Assignment
 
-Assignment might be the most fundamental expressions used in any programming languages. An object in R can be imagined as a box, and  we are able to put anything we want into the box by assignning contents to that object. 
+Assignment might be the most fundamental expression in any programming languages. An object in R can be imagined as a box, and  we are able to put anything we want into the box by assignment. 
 
-For example, if we want to create a sequence starts from 1 and ends at 5, and assign it to `x`, we have several choices to perform this assignment:
+We have several choices to perform this assignment. For example, if we want to create a sequence starts from 1 and ends at 5, and assign it to `x`:
 
 ```{r, eval=TRUE}
 1:5       # it will be displayed in console but stored in nowhere 
@@ -45,7 +45,7 @@ x <- 1:5  # first way to assign it
 1:5 -> x  # second way
 x = 1:5   # third way
 ```
-We may be familiar with the third way but the most often used method is the first one (using `<-`). 
+We may be familiar with the third way but the most often used is the first one (using `<-`) in R. 
 
 Assignment chain is also allowed in R:
 
@@ -62,7 +62,7 @@ c(x, y, z)
 
 ### Operators
 
-`+,-,*,/` are all operators in R language. There are a number of operators in R. You may refer to [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf) Page 10 to find all of them. Here we divide these operators into three catgories: mathematical operators and logical operators and others, and we will use some examples to show how to use them.
+`+,-,*,/` are all operators in R language. There are a number of operators in R. You may refer to [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf) Page 10 to find all of them. Here we divide these operators into three catgories: mathematical operators,  logical operators and others, and we will use some examples to show how to use them.
 
 #### Mathematical Operators
 
@@ -81,7 +81,7 @@ y %% x  # modulus 5%%2 = 1
 y %/% x # interger divide 5%/%2 = 2
 ```
 
-Notice, `*` is different from what we have learned in math class when it is applied to matrix. To perform the so-called "matrix production", we should use `%*%`.
+Notice, `*` is different from what we have learned in math class when it is applied to matrices. To perform the so-called "matrix production", we should use `%*%`.
 
 ```{r, eval=TRUE}
 x <- matrix(1:9, nrow=3)
@@ -112,7 +112,9 @@ x == y
 z != y
 ```
 
-These operators are used to compare the values of two variables. R also provides a useful operator `%in%` to find if a certain element exist in another object.
+These operators are used to compare the values of two variables. 
+
+R also provides a useful operator `%in%` to find if a certain element exist in another object.
 
 ```{r, eval=TRUE}
 y <- c(1, 3, 5, 6)
@@ -512,11 +514,11 @@ Though we usually do not do it this way, we must be clear about what happens in 
 
 ### Statements
 
-There is nothing special to tell about statements, though these statements are the main body of a function. The reason is, you are writing in the same as you are writing an R script.
+There is no more thing to tell about statements, though these statements are the main body of a function. The reason is, you are writing in the same way as you are writing an R script.
 
 ### Further Topics
 
-Here we just list some further topics of R programming. These topics are about the underlying mechanisms. Though your codes still works if you have no idea about these stuffs, these things will become important when you get more and more familiar with R.
+Here we just list some of the further topics of R programming, most of which will tell you the underlying mechanism of R. Though your codes still works if you have no idea about these stuffs, they will become important when you get more and more familiar with R.
 
 * Recycling Rules (See [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf), Page 15, 3.3.1)
 * Copy on Write
@@ -535,6 +537,10 @@ This is a very exiting part because it shows how you can tell your computer to w
 
 The generation of Fibonacci sequence is often used as study examples and also used to test the efficiency of a programming language.
 
+In Fibonacci sequence,
+
+$F_{i}=F_{i-1}+F_{i-2}, i=3, 4, 5, \dots$
+
 ```{r, eval=TRUE}
 n <- 50
 fib <- c(1, 1)
@@ -548,7 +554,7 @@ fib
 
 ### Discrete Markov Chain Simulation
 
-Consider a discrete state transition stochastic procedure:
+Consider a discrete state transition stochastic process:
 
 ```{r, eval=TRUE}
 trans.mat <- matrix(0, 3, 3)
@@ -558,7 +564,7 @@ trans.mat[3, ] <- c(0.4, 0.6, 0)
 trans.mat
 ```
 
-How to simulate this procedure?
+How to simulate this process?
 
 ```{r, eval=TRUE}
 cum.trans.mat <- t( apply(trans.mat, MARGIN=1, cumsum) )
@@ -728,4 +734,67 @@ binom.optprc <- function(type, S, K, r, sigma, Time, N){
 binom.optprc(type='call', S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30)
 binom.optprc(type='put', S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30)
 ```
+
+### Split-Apply-Combine Strategy in Data Manipulation
+
+(This example comes from: Data Manipulation, Chapter 3.)
+
+Split-apply-combine strategy is quite often used in data analysis. 
+
+* Split: Split the data into different groups
+* Apply: Apply your function to finish your analysis within each group
+* Combine: Combine the result of each group
+
+We will use data set `iris` (which is an example data set) as an example. We want to know the first four variables' mean of each kind of species.
+
+```{r, eval=TRUE}
+head(iris)
+```
+
+#### Without a loop
+
+We can split the data into three different data sets and calculate the mean one by one, and then combine them together.
+ 
+```{r, eval=TRUE}
+
+## Split
+iris.set <- iris[iris$Species == "setosa", -5]
+iris.versi <- iris[iris$Species == "versicolor", -5]
+iris.virg <- iris[iris$Species == "virginica", -5]
+
+## Apply
+mean.set <- colMeans(iris.set)
+mean.versi <- colMeans(iris.versi)
+mean.virg <- colMeans(iris.virg)
+
+## Combine
+mean.iris <- rbind(mean.set, mean.versi, mean.virg)
+rownames(mean.iris) <- c("setosa", "versicolor", "virginica")
+
+mean.iris
+```
+
+#### With a loop
+
+Fortunately, there are just three kind of folowers in this dataset. What if there are 100 groups to calculate? 
+
+```{r, eval=TRUE}
+mean.iris.loop <- NULL
+for( species in unique(iris$Species) ){
+  iris_sub <- iris[iris$Species==species]
+  col_means <- colMeans(iris_sub[, -5])
+  mean.iris.loop <- rbind(mean.iris.loop, col_means)  # this way is not recommended
+}
+
+rownames(mean.iris.loop) <- unique(iris$Species)
+
+mean.iris.loop
+```
+
+#### More Convenient Method
+
+Atually, there still exists more convenient ways. Here we recommend you to read the following materials and get familiar with package `plyr`:
+
+* The Split-Apply-Combine Strategy for Data Analysis, Hadley Wickham, 2011.
+* Data Manipulation, Jaynal Albedin, Chapter 3.
 
