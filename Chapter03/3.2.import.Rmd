@@ -1,0 +1,111 @@
+---
+title: "Chapter 3.2 Data Input/Output"
+date: "Saturday, September 27, 2014"
+output:
+  html_document:
+    highlight: tango
+    keep_md: yes
+    number_sections: yes
+    theme: readable
+---
+
+# Data importing
+```{r,echo=FALSE}
+setwd("E:/Project/WISE R Club/LearnR/c3")
+```
+
+
+## Scan the console
+
+`scan()` reads data into a vector or list from the console or file.
+```{r scan, eval=FALSE}
+nums <- scan()
+
+names = scan(what="")
+
+mymat = matrix(scan(),ncol=3,byrow=TRUE)
+```
+
+
+## From text file
+
+```{r txt, eval=FALSE}
+# first row contains variable names, comma is separator 
+# assign the variable id to row names
+# note the / instead of \ on mswindows systems 
+
+mytxt <- read.table("grades.txt", header=TRUE,stringsAsFactors=FALSE)
+# `stringsAsFactors=FALSE` prevent the `read.table` function from treating the character name as factor
+# `grades` is a data frame
+
+# also
+mytxt2 <- read.csv("grades.txt",sep = "")  
+```
+
+
+## From CSV file
+The data can also be stored in comma separated values (CSV) format. Each cell inside such data file is separated by a special character, which usually is a comma(,), although other characters can be used as well. The first row of the data file should contain the column names instead of the actual data. 
+
+```{r csv}
+mycsv <- read.csv("grades.csv")  # read csv file 
+```
+
+
+## From Excel file
+The best way to read an Excel file is to export it to a comma separated file or text file and import it using the methods above. On windows systems there are many packages to access Excel files. But these Excel reading functions are not as stable and fast as the methods described above.
+
+```{r excel, eval=FALSE}
+# first row contains variable names
+# we will read in workSheet grades.xlsx
+# which you can find in QQ group shared file
+
+# 1st method
+library(xlsx)
+mydata <- read.xlsx("grades.xlsx", "Sheet1")
+
+# 2nd method
+library(RODBC)
+channel <- odbcConnectExcel2007("grades.xlsx", readOnly=TRUE)
+mydata2 <- sqlFetch(channel, "Sheet1")
+odbcClose(channel)
+
+# 3rd method
+library(XLConnect)               # load XLConnect package 
+wk = loadWorkbook("grades.xlsx") 
+mydata3 = readWorksheet(wk, sheet="Sheet1")
+```
+
+Read Yihui Xie's blog post: [How to Import MS Excel Data into R ?](http://yihui.name/en/2009/09/how-to-import-ms-excel-data-into-r/)
+
+
+# Data exporting 
+```{r data, eval=FALSE}
+# prepare the data
+out <- mtcars[1:30,1:5]
+```
+
+## To text file
+```{r export1, eval=FALSE}
+write.table(out, "mydata.txt", sep="\t")
+```
+
+## To CSV file
+```{r outcsv, eval=FALSE}
+write.csv(out, "mydata.csv")
+```
+
+## To Excel
+```{r export2, eval=FALSE}
+# 1st method
+library(xlsx)
+write.xlsx(out, "mydata.xlsx")
+```
+
+Further reading : 
+
+1. R Data Import/Export: 
+<http://cran.r-project.org/doc/manuals/r-release/R-data.html>
+2. If you want to read data from SAS, Matlab, Stata, SPSS, `foreign ` pacakge is useful.
+3. Data Import & Export in R: <http://science.nature.nps.gov/im/datamgmt/statistics/r/fundamentals/index.cfm>
+4. Export Data Frames To Multi-worksheet Excel File: <http://www.r-bloggers.com/export-data-frames-to-multi-worksheet-excel-file-2/>
+
