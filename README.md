@@ -27,5 +27,7 @@ Oct. 8th, 2014, Chapter 2, XiaojunSun.
 
 Oct. 15th, 2014, Chapter 2, XiaojunSun. 
 
-**Upcoming:**
 Oct. 22th, 2014, Chapter 3, XiaojunSun. 
+
+**Upcoming:**
+Oct. 29th, 2014, Chapter 3, XiaojunSun. 
