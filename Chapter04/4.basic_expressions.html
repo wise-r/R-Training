@@ -196,7 +196,7 @@ hljs.initHighlightingOnLoad();
 
 <h2>Introduction</h2>
 
-<p>Expressions and functions play essential roles in R programming, especially when the analytic tasks are too complicated to use several existed functions to complete. In these situations, loops and functions are often used to control the execute procedure of the code. In this chapter we will explore some basic but useful skills in R programming, and we will also have some examples related to finance study to show how to organize your idea, and how transform mathematical models to R programs.</p>
+<p>Expressions and functions play essential roles in R programming, especially when the analytic tasks are too complicated to use several existed functions to complete. In these situations, loops and functions are often used to control the execute procedure. In this chapter we will explore some basic but useful skills in R programming, and we will also have some examples related to finance study to show how to organize your idea, and how to  transform mathematical models to R programs.</p>
 
 <h3>Contents</h3>
 
@@ -208,6 +208,16 @@ hljs.initHighlightingOnLoad();
 <li>Operators</li>
 <li>Conditions</li>
 <li>Loop</li>
+</ul></li>
+<li><p>Function Writing</p>
+
+<ul>
+<li>Elements of a Function</li>
+<li>Syntax</li>
+<li>Arguments</li>
+<li>Return</li>
+<li>Statements</li>
+<li>Further Topics</li>
 </ul></li>
 <li><p>Function Writing</p>
 
@@ -233,7 +243,7 @@ hljs.initHighlightingOnLoad();
 
 <h3>Assignment</h3>
 
-<p>Assignment might be the most fundamental expression in any programming languages. An object in R can be imagined as a box, and  we are able to put anything we want into the box by assignment. </p>
+<p>Assignment might be the most fundamental expression in every programming language. An object in R can be imagined as a box, and  we are able to put anything we want into the box by assignment. </p>
 
 <p>We have several choices to perform this assignment. For example, if we want to create a sequence starts from 1 and ends at 5, and assign it to <code>x</code>:</p>
 
@@ -248,7 +258,7 @@ hljs.initHighlightingOnLoad();
 x = 1:5   # third way
 </code></pre>
 
-<p>We may be familiar with the third way but the most often used is the first one (using <code>&lt;-</code>) in R. </p>
+<p>We might be familiar with the third way but the most often used is the first one (using <code>&lt;-</code>) in R. </p>
 
 <p>Assignment chain is also allowed in R:</p>
 
@@ -265,12 +275,12 @@ c(x, y, z)
 c(x, y, z)
 </code></pre>
 
-<pre><code>## [1] -1.583 -1.583 -1.583
+<pre><code>## [1] -0.213 -0.213 -0.213
 </code></pre>
 
 <h3>Operators</h3>
 
-<p><code>+,-,*,/</code> are all operators in R language. There are a number of operators in R. You may refer to <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a> Page 10 to find all of them. Here we divide these operators into three catgories: mathematical operators,  logical operators and others, and we will use some examples to show how to use them.</p>
+<p><code>+,-,*,/</code> are all operators in R language. There are a number of operators in R. You may refer to <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a> Page 10 to find all of them. Here we divide these operators into three catgories: arithmetic operators,  logical operators and others. We will also use some examples to show how they are used in R.</p>
 
 <h4>Mathematical Operators</h4>
 
@@ -326,7 +336,7 @@ x + y
 <pre><code>## [1] 2
 </code></pre>
 
-<p>Notice, <code>*</code> is different from what we have learned in math class when it is applied to matrices. To perform the so-called &ldquo;matrix production&rdquo;, we should use <code>%*%</code>.</p>
+<p>Notice, <code>*</code> is different from what we have learned in math class when it is applied to matrices. To perform the so-called &ldquo;matrix product&rdquo;, we should use <code>%*%</code>.</p>
 
 <pre><code class="r">x &lt;- matrix(1:9, nrow=3)
 y &lt;- matrix(1:9, nrow=3, byrow=TRUE)
@@ -350,7 +360,7 @@ x * y
 
 <h4>Logical Operators</h4>
 
-<p>Logical operators, or Boolean operators are used to calculate logical relationships. The first thing we should know is that logical value, which includes <code>TRUE</code> and <code>FALSE</code>, is also a kind of variables. </p>
+<p>Logical operators, or Boolean operators are used to calculate logical relationships. The first thing we should know is that logical value, which includes <code>TRUE</code> and <code>FALSE</code>, is also a kind of variable. </p>
 
 <pre><code class="r">x &lt;- TRUE
 class(x)
@@ -359,7 +369,7 @@ class(x)
 <pre><code>## [1] &quot;logical&quot;
 </code></pre>
 
-<p>The simplest situation happens when we want to know whether something is true or not. </p>
+<p>The simplest situation happens when we want to know whether a statement is true or not. </p>
 
 <pre><code class="r">x &lt;- 1
 y &lt;- 2
@@ -411,7 +421,17 @@ x &gt; y
 <pre><code>## [1] FALSE
 </code></pre>
 
-<p>Using these operators we can find if a statement is true or not. However, sometimes we also need to calculate the relationship between two statemetn. The basic calculations of two logical values are <code>and</code>, <code>or</code> and <code>not</code>, which combines two simple statement to one complex/compound statement, or reverse the logical value. </p>
+<p>See what happens if we do it this way:</p>
+
+<pre><code class="r">x &lt;- c(1, 2, 4, 6)
+y &lt;- c(1, 3, 5, 6)
+x %in% y
+</code></pre>
+
+<pre><code>## [1]  TRUE FALSE FALSE  TRUE
+</code></pre>
+
+<p>Using these operators, we can find if a statement is true or not. However, sometimes we also need to calculate the relationship of two logical values. The basic calculations of two logical values are <code>and</code>, <code>or</code> and <code>not</code>. <code>and</code> and <code>or</code> combines two simple statement into one complex/compound statement, and <code>not</code> reverses the logical value. </p>
 
 <pre><code class="r">x &lt;- TRUE
 y &lt;- FALSE
@@ -439,7 +459,7 @@ x | y
 <pre><code>## [1] FALSE
 </code></pre>
 
-<p>Notice, two operators are provided to calculation <code>and</code>, <code>&amp;</code> and <code>&amp;&amp;</code>, and two operators for <code>or</code>, <code>|</code> and <code>||</code>. </p>
+<p>Notice, two operators are provided to calculate <code>and</code>: <code>&amp;</code> and <code>&amp;&amp;</code>. Also two operators for <code>or</code>: <code>|</code> and <code>||</code>. We must be clear about their differences.</p>
 
 <pre><code class="r">x &lt;- c(TRUE, FALSE, TRUE)
 y &lt;- c(FALSE, TRUE, TRUE)
@@ -467,9 +487,11 @@ x &amp; y
 <pre><code>## [1] TRUE
 </code></pre>
 
+<p>In R, <code>&amp;</code> and <code>|</code> are called vectorized logical operators, and <code>&amp;&amp;</code> and <code>||</code> are non-vectorized logical operators. Remind this is different with C.</p>
+
 <h4>Other Operators</h4>
 
-<p><code>$</code> and <code>~</code> are also listed as operators, but we will talk about it in further discussions.</p>
+<p><code>$</code> and <code>~</code> are also listed as operators. <code>$</code> is used in select objects in a certain environment. <code>~</code> is often used in formulas. We will talk about it in future discussions.</p>
 
 <h3>Conditions</h3>
 
@@ -480,17 +502,19 @@ x &amp; y
 }
 </code></pre>
 
-<p>In this code, R will evaluate the condition and test if the conditional statement satisfied or not. The statement in bracket will be executed only if condition equals TRUE. </p>
+<p>In this code, R will evaluate the condition and test if it is satisfied or not. The statement in bracket will be executed only if <code>condition</code> equals TRUE. </p>
 
 <pre><code class="r">x &lt;- 2
 if( x == 1 ){
-  z &lt;- 1
+  test &lt;- 1
 }
-z
+test
 </code></pre>
 
-<pre><code>## [1] 2
+<pre><code>## Error: 找不到对象&#39;test&#39;
 </code></pre>
+
+<p>Here we can find that <code>test</code> is not even existed! The example above also shows a often met mistake. Since we do not have to declare a variable before we use it, which is required in C/Cpp and many other languages, we must be careful about the logic of the program. </p>
 
 <p>We may add <code>else</code> to test further conditions.</p>
 
@@ -509,9 +533,9 @@ z
 
 if( signal == 1 ){
   action &lt;- &quot;Open Long&quot;
-} else if( state == -1 ){
+} else if( signal == -1 ){
   action &lt;- &quot;Open Short&quot;
-} else if( state == 0 ){
+} else if( signal == 0 ){
   action &lt;- &quot;Close Position&quot;
 } else {
   action &lt;- &quot;Continue&quot;
@@ -538,10 +562,22 @@ y
 <pre><code>## [1] 9
 </code></pre>
 
-<p>Besides the logical operator we have mentioned, function <code>any()</code> and <code>all()</code> are also often used when there are a lot of conditions to test.</p>
+<p>Besides the logical operators we have mentioned, function <code>any()</code> and <code>all()</code> are also often used when there are a lot of conditions to test. </p>
 
 <pre><code class="r">x &lt;- c(1, 3, 5, 2)
-all( x &gt; 2 )
+x &gt; 2
+</code></pre>
+
+<pre><code>## [1] FALSE  TRUE  TRUE FALSE
+</code></pre>
+
+<pre><code class="r">x == 3
+</code></pre>
+
+<pre><code>## [1] FALSE  TRUE FALSE FALSE
+</code></pre>
+
+<pre><code class="r">all( x &gt; 2 )
 </code></pre>
 
 <pre><code>## [1] FALSE
@@ -589,10 +625,13 @@ all( x &gt; 2 )
 <pre><code class="r">switch(&quot;c&quot;,a=1,b=2)
 </code></pre>
 
+<p>Note that <code>switch()</code> might be helpful to write a user-friendly function, since various situations might happen and we must test what the user really want to do.</p>
+
 <h3>Loop</h3>
 
-<p>Computers does not know how to prove a new mathematical theorem, but knows how to make simple calculations thousands times withins seconds. 
-By looping, we divide a complicated task into repeated calculations. For example, using <code>for-looping</code>:</p>
+<p>Computers does not know how to prove a new mathematical theorem, but knows how to finish simple calculations thousands times within seconds. </p>
+
+<p>By looping, we divide a complicated task into repeated calculations. For example, using <code>for-looping</code>:</p>
 
 <pre><code class="r">y &lt;- 0
 for( i in 1:100 ){
@@ -622,9 +661,9 @@ for( var in df ){
 }
 </code></pre>
 
-<pre><code>## 1.1660130934994
-## -0.0682307513359293
-## 3.13706159451539
+<pre><code>## 1.16950013467193
+## -0.116717297038843
+## 3.12124380620198
 </code></pre>
 
 <pre><code class="r">lists &lt;- list(a=rnorm(100, mean=1), b=rnorm(50, mean=0), c=rnorm(800, mean=3))
@@ -633,12 +672,12 @@ for( x in lists ){
 }
 </code></pre>
 
-<pre><code>## 1.09130021022847
-## -0.220151596727858
-## 3.03141518093846
+<pre><code>## 1.02676447248859
+## -0.202449290126583
+## 2.96961909349605
 </code></pre>
 
-<p><code>next</code> and <code>break</code> gives us further controls over the program. <code>next</code> skips following lines in this time, and <code>break</code> stops the whole iteration.</p>
+<p><code>next</code> and <code>break</code> gives us further controls over the program. <code>next</code> skips following lines, and <code>break</code> stops the current level loop.</p>
 
 <pre><code class="r">s &lt;- 0
 for( i in 1:10 ){
@@ -673,7 +712,7 @@ s
 <pre><code class="r">repeat statement
 </code></pre>
 
-<p>Remember you must give termination condition and use <code>break</code> to stop the loop, and also the termination condition must be satisfied some time, or you will never get out the loop! Actually it not easy to know whether the termination condition will be satisfied in the &ldquo;future&rdquo;, and for this reason <code>repeat-loop</code> is seldom used in practice.</p>
+<p>Remember you must give termination condition and use <code>break</code> to stop the loop, and also the termination condition must be satisfied in future time, or you will never get out the loop! Actually sometimes it not easy to know whether the terminal condition will be satisfied in the &ldquo;future&rdquo;, and for this reason <code>repeat-loop</code> is seldom used in practice.</p>
 
 <p>The last way to loop is <code>while-loop</code>.</p>
 
@@ -684,7 +723,7 @@ s
 
 <p><code>while-loop</code> is very similar to <code>repeat-loop</code>, but gives the termination condition more explicitly. In <code>while-loop</code>, the statement will be evaluated only if <code>condition</code> equals <code>TRUE</code>.</p>
 
-<p>For the same reason, <code>while-loop</code> is also seldom used, but they are useful especially when we do not know when to stop the loop.</p>
+<p>For the same reason, we must be careful about if the terminal condition can be satisfied.</p>
 
 <pre><code class="r">s &lt;- 0
 i &lt;- 1  # remember to creat iterator by yourself.
@@ -717,9 +756,9 @@ s
 
 <h3>Elements of A Function</h3>
 
-<p>Before start learning how to write a function in R, we firstly consider what a function really is. </p>
+<p>Before starting learning how to write a function in R, we firstly consider what a function really is. </p>
 
-<p>In mathematics, a function is a kind of rule. When we put a number <code>x</code> into the function, it will be mapped to another number <code>y</code>. It seems like a black-box if we ignore how <code>x</code> is processed in it, but just focus on its input and output. </p>
+<p>In mathematics, a function is a kind of rule. When we put a number <code>x</code> into the function, it will be mapped to another number <code>y</code>. It seems like a black-box if we ignore how <code>x</code> is processed in it and just focus on its input and output. </p>
 
 <p>In any kind of programming language, function works in the same way. Consider function <code>factorial()</code>:</p>
 
@@ -777,10 +816,10 @@ s
 
 <p>When the function is created, we can use it just as any existed functions in R.</p>
 
-<pre><code class="r">myfun(x=3, intercept=1, slope=2)
+<pre><code class="r">myfun(x=3, a=1, b=2)
 </code></pre>
 
-<pre><code>## Error: 参数没有用(intercept = 1, slope = 2)
+<pre><code>## [1] 7
 </code></pre>
 
 <h3>Arguments</h3>
@@ -817,7 +856,7 @@ s
 
 <p>The second way is called &ldquo;positional matching&rdquo;. </p>
 
-<p>Also, we can use &ldquo;partial matching&rdquo; sometimes, though not recommended. (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 23, 4.3.2)</p>
+<p>Also, we can use &ldquo;partial matching&rdquo; sometimes. (See <a href="http://cran.r-project.org/doc/manuals/R-lang.pdf">R Language Definition</a>, Page 23, 4.3.2)</p>
 
 <h4>Default Value</h4>
 
@@ -884,11 +923,11 @@ z
 <pre><code>## [1] 7
 </code></pre>
 
-<p>However, we usually recommend to explicitly write <code>return()</code> to make the codes more readable.</p>
+<p>However, we usually recommend to explicitly write <code>return()</code> when we are not very familiar with R, in order to make the codes more readable.</p>
 
 <h4>What if we do not care about the return?</h4>
 
-<p>In some situations, we do not care about what its return is. We use these functions to plot, to write data and so on. These actions are also allowed in R, and they do not need a specific return. </p>
+<p>In some situations, we do not care about what its return is. We use these functions to plot, to write data, to edit a data frame directly and so on. These actions are also allowed in R, and they do not need a specific return. </p>
 
 <p>For example, we want a function to plot <code>n</code> random numbers:</p>
 
@@ -903,14 +942,14 @@ z
 <pre><code class="r">plot.rnorm(100)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-35"/> </p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-36"/> </p>
 
 <p>Still, we want to know what if we assign it to an object.</p>
 
 <pre><code class="r">test &lt;- plot.rnorm(100)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-36"/> </p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-37"/> </p>
 
 <pre><code class="r">test
 </code></pre>
@@ -919,8 +958,6 @@ z
 </code></pre>
 
 <p>Think about why. The reason is <code>plot(rand)</code> is the last line in the function, and <code>plot()</code> function returns the <code>NULL</code>! </p>
-
-<p>Though we usually do not do it this way, we must be clear about what happens in a function. In these situations, one recommended way is to let the function <code>return(TRUE)</code>. This is a good habit especially in complex tasks. </p>
 
 <h3>Statements</h3>
 
@@ -992,9 +1029,19 @@ trans.mat
 
 <p>How to simulate this process?</p>
 
-<pre><code class="r">cum.trans.mat &lt;- t( apply(trans.mat, MARGIN=1, cumsum) )
+<p>(Roulette Wheel Method in Probability Simulation)</p>
 
-state &lt;- 2
+<pre><code class="r">cum.trans.mat &lt;- t( apply(trans.mat, MARGIN=1, cumsum) )
+cum.trans.mat
+</code></pre>
+
+<pre><code>##      [,1] [,2] [,3]
+## [1,]  0.1  0.4    1
+## [2,]  0.3  0.7    1
+## [3,]  0.4  1.0    1
+</code></pre>
+
+<pre><code class="r">state &lt;- 2
 sim &lt;- c(state)
 
 for( i in 2:1000 ){
@@ -1034,6 +1081,8 @@ for( i in 2:1000 ){
 }
 </code></pre>
 
+<p>If there is no <code>break</code>, when <code>state == 1</code> is satisfied, the inner loop will be continued, <code>j</code> will be set to <code>2</code>, and the R will test <code>state == 2</code>. However, we have already changed variable <code>state</code> at this time. </p>
+
 <p>Test if the simulation is consistency with the given matrix.</p>
 
 <pre><code class="r">test &lt;- table( sim[1:999], sim[2:1000] )
@@ -1042,19 +1091,19 @@ test
 
 <pre><code>##    
 ##       1   2   3
-##   1  27  84 171
-##   2 131 159 128
-##   3 124 175   0
+##   1  22  79 174
+##   2 137 171 121
+##   3 116 179   0
 </code></pre>
 
 <pre><code class="r">test/rowSums(test)
 </code></pre>
 
 <pre><code>##    
-##           1       2       3
-##   1 0.09574 0.29787 0.60638
-##   2 0.31340 0.38038 0.30622
-##   3 0.41472 0.58528 0.00000
+##          1      2      3
+##   1 0.0800 0.2873 0.6327
+##   2 0.3193 0.3986 0.2821
+##   3 0.3932 0.6068 0.0000
 </code></pre>
 
 <pre><code class="r">trans.mat
@@ -1208,7 +1257,7 @@ binom.optprc(type=&#39;call&#39;, S=50, K=52, r=0.01, sigma=0.5, Time=0.25, N=30
 <li>Combine: Combine the result of each group</li>
 </ul>
 
-<p>We will use data set <code>iris</code> (which is an example data set) as an example. We want to know the first four variables&#39; mean of each kind of species.</p>
+<p>We will use data set <code>iris</code> (which is an example data set already exists in R) as an example. We want to know the first four variables&#39; mean of each kind of species.</p>
 
 <pre><code class="r">head(iris)
 </code></pre>
@@ -1251,7 +1300,7 @@ mean.iris
 
 <h4>With a loop</h4>
 
-<p>Fortunately, there are just three kind of folowers in this dataset. What if there are 100 groups to calculate? </p>
+<p>Fortunately, there are just three kinds of folowers in this dataset. What if there are 100 groups to calculate? </p>
 
 <pre><code class="r">mean.iris.loop &lt;- NULL
 for( species in unique(iris$Species) ){
