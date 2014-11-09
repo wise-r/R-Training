@@ -1,0 +1,10 @@
+Hints for dataGrab
+========================================================
+
+1. Remind that not every day is a trading day. Try to see what we can grab when the given date is not a trading day, and find a proper way to deal with this issue.
+
+2. Package RSQLite and RODBC might be used to connect with a database, and write data into it.
+
+3. Try to create a log file when you are grabbing historical data. 
+
+4. Notice there might be some very tricky situations making your program break. More hints about these details will be given if they are needed.
