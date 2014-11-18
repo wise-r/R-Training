@@ -348,7 +348,7 @@ system.time(read.csv(file,header=TRUE,sep="\t"))
 ##  21.883   0.165  22.273
 ```
 
-***Question:***That is, is the functionality of `fread` a superset of `read.csv` under all circumstances? 
+***Question:*** Is the functionality of `fread` a superset of `read.csv` under all circumstances? 
 
 2. Another way of dealing with large text data is to compress it into `gz` files. Investigate the `gzfile` connection in the R language and try reading and writing compressed text data. Do the same to `RData` using `load` and `save`.
 
