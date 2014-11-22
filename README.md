@@ -29,5 +29,9 @@ Oct. 15th, 2014, Chapter 2, XiaojunSun.
 
 Oct. 22th, 2014, Chapter 3, XiaojunSun. 
 
+Oct. 29th, 2014, Chapter 3, XiaojunSun.
+
+Nov. 21th, 2014, Chapter 4, Deng Guanghong
+
 **Upcoming:**
-Oct. 29th, 2014, Chapter 3, XiaojunSun. 
+Nov. 26th, 2014, Chapter 4, Deng Guanghong. 
