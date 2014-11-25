@@ -23,15 +23,12 @@ Expressions and functions play essential roles in R programming, especially when
   * Arguments
   * Return
   * Statements
-  * Further Topics
+  * Advaced Topics
 
-* Function Writing
-  * Elements of a Function
-  * Syntax
-  * Arguments
-  * Return
-  * Statements
-  * Further Topics
+* apply() Family 
+  * Get to Know apply() Family Functions
+  * Looping in apply()
+  * Anonymous Function in *apply()
 
 * Applications
   * Fibonacci Sequence
@@ -180,7 +177,7 @@ if( condition ){
 
 In this code, R will evaluate the condition and test if it is satisfied or not. The statement in bracket will be executed only if `condition` equals TRUE. 
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 x <- 2
 if( x == 1 ){
   test <- 1
@@ -553,6 +550,87 @@ Here we just list some of the further topics of R programming, most of which wil
 * Debugging (See [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf), Page 40, 9)
 * dot-dot-dot
 
+## apply() Family 
+
+### Get to Know apply() Family Functions
+
+#### `apply()`
+
+`apply()` returns a vector or array or list of values obtained by applying a function to margins of an array or matrix. It is useful to deal with matrix and other high dimensional data. (From R base)
+
+```{r, eval=TRUE}
+x <- cbind(x1 = 3, x2 = c(4:1, 2:5))
+dimnames(x)[[1]] <- letters[1:8]
+apply(x, 2, mean, trim = .2)
+col.sums <- apply(x, 2, sum)
+row.sums <- apply(x, 1, sum)
+```
+
+#### `tapply()`
+
+Apply a function to each cell of a ragged array, that is to each (non-empty) group of values given by a unique combination of the levels of certain factors.
+
+```{r, eval=TRUE}
+
+test <- data.frame(x=rnorm(1000, mean=2), 
+                   y=rpois(1000, lambda=3), 
+                   g=rep(LETTERS[1:5], 200))
+
+tapply(test$x, test$g, mean)
+tapply(test$y, test$g, mean)
+```
+
+#### `lapply()`
+
+`lapply()` returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X.
+
+```{r, eval=TRUE}
+x <- list(a = 1:10, 
+          beta = exp(-3:3), 
+          logic = c(TRUE,FALSE,FALSE,TRUE))
+
+lapply(x, mean)
+lapply(x, quantile)
+lapply(x, quantile, probs = 1:4/5)
+```
+
+#### `sapply()`
+
+```{r, eval=TRUE}
+x <- list(a = 1:10, 
+          beta = exp(-3:3), 
+          logic = c(TRUE,FALSE,FALSE,TRUE))
+
+sapply(x, mean)
+sapply(x, quantile)
+```
+
+### Anonymous Function in `*apply()`
+
+In some cases, R also allows anonymous functions. This is useful when you only want to use a function once.
+
+```{r, eval=TRUE}
+(function(x) 2*x)(2)
+```
+
+Anonymous is very often used in `*apply()` family: We use `*apply()` to loop, and write anonymous functions in it.
+
+```{r, eval=TRUE}
+sapply(1:100, FUN = function(i){
+  sim <- rnorm(100, mean=i)
+  return(mean(sim))
+})
+```
+
+```{r, eval=TRUE}
+ul <- sapply(LETTERS, function(L){
+  c(L, tolower(L))  
+})
+
+t(ul)
+```
+
+
 ## Application 
 
 Equipped with the knowledge of operators, conditions and looping, we now come into a new topic: build your own program.
@@ -809,7 +887,7 @@ mean.iris
 
 Fortunately, there are just three kinds of folowers in this dataset. What if there are 100 groups to calculate? 
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 mean.iris.loop <- NULL
 for( species in unique(iris$Species) ){
   iris_sub <- iris[iris$Species==species]
@@ -829,3 +907,9 @@ Atually, there still exists more convenient ways. Here we recommend you to read 
 * The Split-Apply-Combine Strategy for Data Analysis, Hadley Wickham, 2011.
 * Data Manipulation, Jaynal Albedin, Chapter 3.
 
+```{r, eval=TRUE}
+library(plyr)
+ddply(iris, .variables = "Species", .fun = function(df.sub){
+  colMeans(df.sub[, -5])
+})
+```
