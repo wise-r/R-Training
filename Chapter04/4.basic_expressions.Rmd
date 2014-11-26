@@ -656,6 +656,56 @@ for( i in 3:50 ){
 fib
 ```
 
+Now, consider to write a function to get a certain element of Fibonacci sequence.
+
+Of course we can still use the method above and modify it as a function. The following codes shows that functions are allowed to call itself and thus able to complete recursive algorithm conveniently.
+
+```{r, eval=TRUE}
+fib <- function(n){
+  if(n == 1 || n == 2){
+    fib <- 1
+  } else {
+    fib <- fib(n-1) + fib(n-2)
+  }
+  return(fib)
+}
+
+fib(10)
+sapply(1:20, fib)
+```
+
+You may find that the calculation wastes a lot of resources. Advanced R[http://adv-r.had.co.nz/Function-operators.html] mentions a function called `memoise()` to memorise the outputs. A memoised function can run much faster because it stores all of the previous inputs and outputs, using more memory.
+
+```{r, eval=TRUE}
+system.time(fib(23))
+system.time(fib(24))
+
+library(memoise)
+fib2 <- memoise(function(n) {
+  if (n < 2) return(1)
+  fib2(n - 2) + fib2(n - 1)
+})
+system.time(fib2(23))
+system.time(fib2(24))
+```
+
+Still, we want to show another way deal with this issue.
+
+```{r, eval=TRUE}
+fib_1 <- 1
+fib_2 <- 1
+
+sapply(1:50, function(i){
+  fib <- fib_1 + fib_2
+  fib_2 <<- fib_1
+  fib_1 <<- fib
+  
+  return(fib)
+})
+```
+
+`<<-` allows you to get out of the scope within a function. 
+
 ### Discrete Markov Chain Simulation
 
 Consider a discrete state transition stochastic process:
