@@ -23,7 +23,7 @@ Expressions and functions play essential roles in R programming, especially when
   * Arguments
   * Return
   * Statements
-  * Advaced Topics
+  * Advanced Topics
 
 * apply() Family 
   * Get to Know apply() Family Functions
@@ -35,6 +35,7 @@ Expressions and functions play essential roles in R programming, especially when
   * Discrete Markov Chain
   * Basic Option Pricing Models
   * Split-Apply-Combine Strategy in Data Manipulation
+  * Karlman Filter
 
 ## Basic Expressions
 
@@ -69,7 +70,7 @@ c(x, y, z)
 
 ### Operators
 
-`+,-,*,/` are all operators in R language. There are a number of operators in R. You may refer to [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf) Page 10 to find all of them. Here we divide these operators into three catgories: arithmetic operators,  logical operators and others. We will also use some examples to show how they are used in R.
+`+,-,*,/` are all operators in R language. There are a number of operators in R. You may refer to [R Language Definition](http://cran.r-project.org/doc/manuals/R-lang.pdf) Page 10 to find all of them. Here we divide these operators into three categories: arithmetic operators,  logical operators and others. We will also use some examples to show how they are used in R.
 
 #### Mathematical Operators
 
@@ -391,7 +392,7 @@ This calculates $n\times(n-1)\times(n-2)\dots\times1$. Here the input number is 
 So we can divide a function into three parts:
 * 1. The input (`5`)
 * 2. The output (`120`)
-* 3. How the input is procced into the output. ( $n\times(n-1)\times(n-2)\dots\times1$)
+* 3. How the input is processed into the output. ( $n\times(n-1)\times(n-2)\dots\times1$)
 
 In R (and in any other programming language), we define them as:
 * 1. Arguments
@@ -676,7 +677,7 @@ sapply(1:20, fib)
 
 You may find that the calculation wastes a lot of resources. Advanced R[http://adv-r.had.co.nz/Function-operators.html] mentions a function called `memoise()` to memorise the outputs. A memoised function can run much faster because it stores all of the previous inputs and outputs, using more memory.
 
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 system.time(fib(23))
 system.time(fib(24))
 
@@ -858,7 +859,7 @@ bs.optprc(type="euro.call", 50, 52, 0.01, 0.5, 0.25, 0)
 
 #### Binomial Tree Model
 
-Binomial tree model is another famous option pricing model. This model assumes the price of the uderlying asset will go up or go down in a certain rate during every single period of time. We can calculate the change rate of price, and the probability to go up. 
+Binomial tree model is another famous option pricing model. This model assumes the price of the underlying asset will go up or go down in a certain rate during every single period of time. We can calculate the change rate of price, and the probability to go up. 
 
 The final price of the option is introduced firstly, and then we can trace back to the original price and get the theoretical price right now.
 
@@ -935,7 +936,7 @@ mean.iris
 
 #### With a loop
 
-Fortunately, there are just three kinds of folowers in this dataset. What if there are 100 groups to calculate? 
+Fortunately, there are just three kinds of flowers in this dataset. What if there are 100 groups to calculate? 
 
 ```{r, eval=FALSE}
 mean.iris.loop <- NULL
@@ -952,7 +953,7 @@ mean.iris.loop
 
 #### More Convenient Method
 
-Atually, there still exists more convenient ways. Here we recommend you to read the following materials and get familiar with package `plyr`:
+Actually, there still exists more convenient ways. Here we recommend you to read the following materials and get familiar with package `plyr`:
 
 * The Split-Apply-Combine Strategy for Data Analysis, Hadley Wickham, 2011.
 * Data Manipulation, Jaynal Albedin, Chapter 3.
@@ -963,3 +964,8 @@ ddply(iris, .variables = "Species", .fun = function(df.sub){
   colMeans(df.sub[, -5])
 })
 ```
+
+### Karlman Filter
+
+At the end of this lecture, we discussed how to implement the model of Karlman Filter. Here we just provide an example: https://github.com/MiltonDeng/Milton-Repo/tree/master/Courses/SSM
+
