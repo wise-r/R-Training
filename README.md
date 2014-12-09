@@ -33,5 +33,7 @@ Oct. 29th, 2014, Chapter 3, XiaojunSun.
 
 Nov. 21th, 2014, Chapter 4, Deng Guanghong
 
-**Upcoming:**
 Nov. 26th, 2014, Chapter 4, Deng Guanghong. 
+
+**Upcoming:**
+Dec. 10th, 2014, R Packages, RenKun-Ken
